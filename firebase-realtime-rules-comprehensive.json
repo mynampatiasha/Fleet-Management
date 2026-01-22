@@ -1,0 +1,298 @@
+{
+  "rules": {
+    // ============================================
+    // ADMIN FULL ACCESS (Global fallback)
+    // ============================================
+    ".read": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+    ".write": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+    
+    // ============================================
+    // ROSTER REQUESTS (Main issue causing permission denied)
+    // ============================================
+    "roster_requests": {
+      ".read": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+      ".write": "auth != null",
+      ".indexOn": ["status", "customerId", "createdAt", "clientId"],
+      "$rosterId": {
+        ".read": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+        ".write": "auth != null"
+      }
+    },
+    
+    // ============================================
+    // SOS EVENTS COLLECTION
+    // ============================================
+    "sos_events": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["customerId", "status", "timestamp", "priority"],
+      "$sosId": {
+        ".read": "auth != null",
+        ".write": "auth != null",
+        "status": {
+          ".write": "auth != null && auth.token.email == 'admin@abrafleet.com'"
+        }
+      }
+    },
+    
+    // ============================================
+    // NOTIFICATIONS COLLECTION
+    // ============================================
+    "notifications": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      "$userId": {
+        ".read": "auth != null && (auth.uid == $userId || auth.token.email == 'admin@abrafleet.com')",
+        ".write": "auth != null",
+        ".indexOn": ["isRead", "createdAt", "type", "priority"]
+      }
+    },
+    
+    // ============================================
+    // DRIVER LOCATIONS (Real-time tracking)
+    // ============================================
+    "driver_locations": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["timestamp", "driverId", "status"],
+      "$driverId": {
+        ".read": "auth != null",
+        ".write": "auth != null && (auth.uid == $driverId || auth.token.email == 'admin@abrafleet.com')",
+        "latitude": {
+          ".write": "auth != null && (auth.uid == $driverId || auth.token.email == 'admin@abrafleet.com')"
+        },
+        "longitude": {
+          ".write": "auth != null && (auth.uid == $driverId || auth.token.email == 'admin@abrafleet.com')"
+        },
+        "timestamp": {
+          ".write": "auth != null && (auth.uid == $driverId || auth.token.email == 'admin@abrafleet.com')"
+        }
+      }
+    },
+    
+    // ============================================
+    // TRIP TRACKING
+    // ============================================
+    "trip_tracking": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["tripId", "customerId", "driverId", "status", "timestamp"],
+      "$tripId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+    
+    // ============================================
+    // TRIPS COLLECTION
+    // ============================================
+    "trips": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["customerId", "driverId", "status", "tripDate", "clientId"],
+      "$tripId": {
+        ".read": "auth != null",
+        ".write": "auth != null",
+        "status": {
+          ".write": "auth != null"
+        }
+      }
+    },
+    
+    // ============================================
+    // BOOKINGS COLLECTION
+    // ============================================
+    "bookings": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["customerId", "driverId", "status", "createdAt", "bookingDate"],
+      "$bookingId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+    
+    // ============================================
+    // VEHICLES COLLECTION
+    // ============================================
+    "vehicles": {
+      ".read": "auth != null",
+      ".write": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+      ".indexOn": ["status", "vehicleType", "driverId", "availability"],
+      "$vehicleId": {
+        ".read": "auth != null",
+        ".write": "auth != null && auth.token.email == 'admin@abrafleet.com'"
+      }
+    },
+    
+    // ============================================
+    // DRIVERS COLLECTION
+    // ============================================
+    "drivers": {
+      ".read": "auth != null",
+      ".write": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+      ".indexOn": ["status", "availabilityStatus", "vehicleId", "organizationId"],
+      "$driverId": {
+        ".read": "auth != null",
+        ".write": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+        "profile": {
+          ".read": "auth != null && (auth.uid == $driverId || auth.token.email == 'admin@abrafleet.com')",
+          ".write": "auth != null && (auth.uid == $driverId || auth.token.email == 'admin@abrafleet.com')"
+        }
+      }
+    },
+    
+    // ============================================
+    // CUSTOMERS COLLECTION
+    // ============================================
+    "customers": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["organizationId", "status", "createdAt"],
+      "$customerId": {
+        ".read": "auth != null && (auth.uid == $customerId || auth.token.email == 'admin@abrafleet.com')",
+        ".write": "auth != null && (auth.uid == $customerId || auth.token.email == 'admin@abrafleet.com')"
+      }
+    },
+    
+    // ============================================
+    // CLIENTS COLLECTION (Organizations)
+    // ============================================
+    "clients": {
+      ".read": "auth != null",
+      ".write": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+      ".indexOn": ["status", "createdAt", "organizationType"],
+      "$clientId": {
+        ".read": "auth != null",
+        ".write": "auth != null && auth.token.email == 'admin@abrafleet.com'"
+      }
+    },
+    
+    // ============================================
+    // ROUTES COLLECTION
+    // ============================================
+    "routes": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["status", "clientId", "driverId", "createdAt"],
+      "$routeId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+    
+    // ============================================
+    // ROSTERS/SCHEDULES COLLECTION
+    // ============================================
+    "rosters": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["date", "clientId", "status", "driverId", "customerId"],
+      "$rosterId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+    
+    // ============================================
+    // USERS METADATA
+    // ============================================
+    "users": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["role", "organizationId", "status"],
+      "$userId": {
+        ".read": "auth != null && (auth.uid == $userId || auth.token.email == 'admin@abrafleet.com')",
+        ".write": "auth != null && (auth.uid == $userId || auth.token.email == 'admin@abrafleet.com')"
+      }
+    },
+    
+    // ============================================
+    // ADMIN USERS (For permission checking)
+    // ============================================
+    "admin_users": {
+      ".read": "auth != null",
+      ".write": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+      "$adminId": {
+        ".read": "auth != null",
+        ".write": "auth != null && auth.token.email == 'admin@abrafleet.com'"
+      }
+    },
+    
+    // ============================================
+    // ANALYTICS (Admin only)
+    // ============================================
+    "analytics": {
+      ".read": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+      ".write": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+      "$analyticsId": {
+        ".read": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+        ".write": "auth != null && auth.token.email == 'admin@abrafleet.com'"
+      }
+    },
+    
+    // ============================================
+    // APP CONFIGURATION
+    // ============================================
+    "config": {
+      ".read": true,
+      ".write": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+      "app_settings": {
+        ".read": true,
+        ".write": "auth != null && auth.token.email == 'admin@abrafleet.com'"
+      }
+    },
+    
+    // ============================================
+    // INVOICES COLLECTION
+    // ============================================
+    "invoices": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["customerId", "clientId", "status", "createdAt", "dueDate"],
+      "$invoiceId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+    
+    // ============================================
+    // PAYMENTS COLLECTION
+    // ============================================
+    "payments": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["customerId", "status", "paymentDate", "invoiceId"],
+      "$paymentId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+    
+    // ============================================
+    // LEAVE REQUESTS
+    // ============================================
+    "leave_requests": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["customerId", "status", "requestDate", "leaveDate"],
+      "$leaveId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+    
+    // ============================================
+    // MAINTENANCE RECORDS
+    // ============================================
+    "maintenance": {
+      ".read": "auth != null",
+      ".write": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+      ".indexOn": ["vehicleId", "status", "scheduledDate", "completedDate"],
+      "$maintenanceId": {
+        ".read": "auth != null",
+        ".write": "auth != null && auth.token.email == 'admin@abrafleet.com'"
+      }
+    }
+  }
+}

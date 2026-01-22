@@ -1,0 +1,11 @@
+Roster Type,Office Location,Weekdays,From Date,To Date,Start Time,End Time,Login Pickup Address,Logout Drop Address,Employee Name,Employee Email,Employee Phone,Company Name,Department,Status
+login,Bangalore Office,Mon,2024-02-01,2024-02-29,09:00,18:00,Electronic City Phase 1,Electronic City Phase 1,John Smith,john.smith@infosys.com,+91-9876543210,Infosys Ltd,Engineering,Active
+logout,Chennai Office,Tue,2024-02-01,2024-02-29,08:30,17:30,OMR Thoraipakkam,OMR Thoraipakkam,Sarah Johnson,sarah.johnson@infosys.com,+91-9876543220,Infosys Ltd,Human Resources,Active
+both,Hyderabad Office,Wed,2024-02-01,2024-02-29,10:00,19:00,HITEC City,HITEC City,Michael Brown,michael.brown@infosys.com,+91-9876543230,Infosys Ltd,Operations,Active
+login,Mumbai Office,Thu,2024-02-01,2024-02-29,09:30,18:30,Powai,Powai,Emily Davis,emily.davis@tcs.com,+91-9876543240,TCS Ltd,Finance,Active
+logout,Pune Office,Fri,2024-02-01,2024-02-29,09:00,18:00,Hinjewadi Phase 1,Hinjewadi Phase 1,Robert Wilson,robert.wilson@tcs.com,+91-9876543250,TCS Ltd,Marketing,Active
+both,Delhi Office,Sat,2024-02-01,2024-02-29,14:00,23:00,Gurgaon Sector 62,Gurgaon Sector 62,Jennifer Garcia,jennifer.garcia@wipro.com,+91-9876543260,Wipro Ltd,Customer Support,Active
+login,Bangalore Office,Sun,2024-02-01,2024-02-29,08:00,17:00,Whitefield,Whitefield,Priya Sharma,priya.sharma@wipro.com,+91-9876543270,Wipro Ltd,Quality Assurance,Active
+logout,Chennai Office,Mon,2024-02-01,2024-02-29,10:30,19:30,Sholinganallur,Sholinganallur,Amit Patel,amit.patel@infosys.com,+91-9876543280,Infosys Ltd,Development,Pending
+both,Hyderabad Office,Tue,2024-02-01,2024-02-29,09:00,18:00,Madhapur,Madhapur,Kavya Reddy,kavya.reddy@tcs.com,+91-9876543290,TCS Ltd,Testing,Active
+login,Mumbai Office,Wed,2024-02-01,2024-02-29,22:00,07:00,Andheri East,Andheri East,Rahul Kumar,rahul.kumar@wipro.com,+91-9876543300,Wipro Ltd,Support,Inactive

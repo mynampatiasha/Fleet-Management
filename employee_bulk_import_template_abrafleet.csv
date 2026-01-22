@@ -1,0 +1,7 @@
+name,email,phoneNumber,companyName,department,status,employeeId,designation,alternativePhone,emergencyContactName,emergencyContactPhone
+John Smith,john.smith@abrafleet.com,+91-9876543210,Abra Fleet Management,Engineering,Active,EMP001,Senior Software Engineer,+91-9876543211,Jane Smith,+91-9876543299
+Sarah Johnson,sarah.johnson@abrafleet.com,+91-9876543220,Abra Fleet Management,Human Resources,Active,EMP002,HR Manager,+91-9876543221,Mike Johnson,+91-9876543288
+Michael Brown,michael.brown@abrafleet.com,+91-9876543230,Abra Fleet Management,Operations,Active,EMP003,Operations Manager,+91-9876543231,Lisa Brown,+91-9876543277
+Emily Davis,emily.davis@abrafleet.com,+91-9876543240,Abra Fleet Management,Finance,Active,EMP004,Finance Analyst,+91-9876543241,David Davis,+91-9876543266
+Robert Wilson,robert.wilson@abrafleet.com,+91-9876543250,Abra Fleet Management,Marketing,Active,EMP005,Marketing Specialist,+91-9876543251,Anna Wilson,+91-9876543255
+Jennifer Garcia,jennifer.garcia@abrafleet.com,+91-9876543260,Abra Fleet Management,Customer Support,Active,EMP006,Support Lead,+91-9876543261,Carlos Garcia,+91-9876543244

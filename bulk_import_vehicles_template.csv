@@ -1,0 +1,11 @@
+Registration Number,Vehicle Type,Make & Model,Year of Manufacture,Engine Type,Engine Capacity (CC),Seating Capacity,Mileage (km/l)
+KA01AB1234,Bus,Tata Starbus,2022,Diesel,2200.0,40,12.5
+KA02CD5678,Car,Maruti Swift,2021,Petrol,1200.0,5,18.5
+KA03EF9012,Truck,Ashok Leyland Dost,2020,Diesel,2500.0,3,15.2
+KA04GH3456,Van,Mahindra Bolero Pickup,2023,Diesel,2500.0,8,14.2
+KA05IJ7890,Mini Bus,Force Traveller,2022,Diesel,2600.0,26,10.8
+KA06KL1234,Car,Hyundai i20,2021,Petrol,1200.0,5,20.1
+KA07MN5678,Bus,Ashok Leyland Viking,2023,Diesel,5900.0,52,8.5
+KA08OP9012,Car,Toyota Innova,2022,Diesel,2400.0,7,15.3
+KA09QR3456,Truck,Tata LPT 1613,2020,Diesel,3800.0,3,12.8
+KA10ST7890,Car,Honda City,2023,Petrol,1500.0,5,18.0

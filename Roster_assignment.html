@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abra Fleet Management - How It Works</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+
+        .tab-btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .tab-btn.current {
+            background: #ef4444;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .tab-btn.complete {
+            background: #10b981;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .tab-btn:not(.current):not(.complete) {
+            background: white;
+            color: #333;
+        }
+
+        .tab-btn:hover {
+            transform: scale(1.08);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .control-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .play-btn {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .play-btn:hover {
+            background: #2563eb;
+        }
+
+        .reset-btn {
+            background: #6b7280;
+            color: white;
+        }
+
+        .reset-btn:hover {
+            background: #4b5563;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 20px;
+            padding: 30px;
+            min-height: 600px;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 2px solid #e5e7eb;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .panel-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+        }
+
+        .admin-icon { background: #ddd6fe; }
+        .driver-icon { background: #fef3c7; }
+        .customer-icon { background: #dbeafe; }
+
+        .panel-title h3 {
+            font-size: 1.3em;
+            color: #1f2937;
+        }
+
+        .panel-title p {
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+
+        .status-card {
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .status-card.success {
+            background: #d1fae5;
+            border-left-color: #10b981;
+        }
+
+        .status-card.error {
+            background: #fee2e2;
+            border-left-color: #ef4444;
+        }
+
+        .status-card.warning {
+            background: #fef3c7;
+            border-left-color: #f59e0b;
+        }
+
+        .customer-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .customer-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .customer-item.active {
+            border-color: #3b82f6;
+            background: #eff6ff;
+            transform: scale(1.02);
+        }
+
+        .customer-number {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #3b82f6;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .map-container {
+            background: #f9fafb;
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-point {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        .route-line {
+            position: absolute;
+            height: 3px;
+            background: #3b82f6;
+            transform-origin: left center;
+            animation: drawLine 1s ease-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes drawLine {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .timeline {
+            padding: 30px;
+            background: #f8f9fa;
+        }
+
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .timeline-header h2 {
+            font-size: 1.8em;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .timeline-steps {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 1.2em;
+            flex-shrink: 0;
+            z-index: 2;
+            transition: all 0.3s;
+        }
+
+        .step-number.completed {
+            background: #10b981;
+        }
+
+        .step-number.active {
+            background: #3b82f6;
+            animation: pulse 2s infinite;
+        }
+
+        .step-number.pending {
+            background: #d1d5db;
+        }
+
+        .step-number.error {
+            background: #ef4444;
+        }
+
+        .step-content {
+            flex: 1;
+            margin-left: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .step-content.active {
+            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+            transform: scale(1.02);
+        }
+
+        .step-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 5px;
+        }
+
+        .step-desc {
+            color: #6b7280;
+            font-size: 0.95em;
+        }
+
+        .connector {
+            position: absolute;
+            left: 24px;
+            top: 50px;
+            width: 2px;
+            height: calc(100% - 50px);
+            background: #d1d5db;
+        }
+
+        .notification-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .badge-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🚗 Abra Fleet Management System</h1>
+            <p>Complete Workflow Visualization - Current vs Complete System</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn current" id="currentTab" onclick="switchScenario('current')">
+                ❌ Current System (Incomplete)
+            </button>
+            <button class="tab-btn" id="completeTab" onclick="switchScenario('complete')">
+                ✅ Complete System (What You Need)
+            </button>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="control-btn play-btn" onclick="togglePlay()">
+                <span id="playIcon">▶️</span>
+                <span id="playText">Play</span>
+            </button>
+            <button class="control-btn reset-btn" onclick="resetAnimation()">
+                🔄 Reset
+            </button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Will be populated by JavaScript -->
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline">
+            <div class="timeline-header">
+                <h2>System Flow Timeline</h2>
+                <p>Watch how the system processes route optimization step by step</p>
+            </div>
+            <div class="timeline-steps" id="timelineSteps">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let currentScenario = 'current';
+        let currentStep = 0;
+        let isPlaying = false;
+        let playInterval = null;
+
+        // Scenarios
+        const scenarios = {
+            current: [
+                { title: "Admin Opens Dashboard", desc: "Admin logs into Pending Rosters screen", icon: "👨‍💼", status: "completed" },
+                { title: "View Pending Rosters", desc: "System shows 20 pending customer requests", icon: "📋", status: "completed" },
+                { title: "Click Route Optimization", desc: "Admin clicks 'Route Optimization' button", icon: "🎯", status: "completed" },
+                { title: "Enter Customer Count", desc: "Admin selects 4 customers to optimize", icon: "🔢", status: "completed" },
+                { title: "Algorithm Running", desc: "Haversine formula finds 4 closest customers (2.5km cluster)", icon: "🧮", status: "active" },
+                { title: "Find Best Vehicle", desc: "System finds vehicle KA-01-AB-1234 with 4 seats available", icon: "🚗", status: "pending" },
+                { title: "Generate Route Plan", desc: "TSP algorithm: C1→C2→C3→C4→Office (12.5km, 35min)", icon: "🗺️", status: "pending" },
+                { title: "Show Route to Admin", desc: "Display route plan with distances and ETAs", icon: "📊", status: "pending" },
+                { title: "Admin Confirms", desc: "Admin clicks 'Confirm Assignment' button", icon: "✅", status: "pending" },
+                { title: "⚠️ PROBLEM: Nothing Happens!", desc: "Success message shows BUT no API call is made", icon: "⚠️", status: "error" },
+                { title: "❌ Data Not Saved", desc: "Assignment exists only in app memory - lost on refresh!", icon: "❌", status: "error" },
+                { title: "❌ No Customer Notifications", desc: "Customers don't receive SMS, email, or push notifications", icon: "📵", status: "error" },
+                { title: "❌ Driver Not Informed", desc: "Driver has no idea they have new assignment", icon: "🚫", status: "error" },
+                { title: "❌ No Live Tracking", desc: "Customers can't track vehicle location", icon: "📍", status: "error" }
+            ],
+            complete: [
+                { title: "Admin Opens Dashboard", desc: "Admin logs into Pending Rosters screen", icon: "👨‍💼", status: "completed" },
+                { title: "View Pending Rosters", desc: "System shows 20 pending customer requests", icon: "📋", status: "completed" },
+                { title: "Click Route Optimization", desc: "Admin clicks 'Route Optimization' button", icon: "🎯", status: "completed" },
+                { title: "Enter Customer Count", desc: "Admin selects 4 customers to optimize", icon: "🔢", status: "completed" },
+                { title: "Algorithm Running", desc: "Haversine + clustering finds optimal 4 customers", icon: "🧮", status: "active" },
+                { title: "Find Best Vehicle", desc: "System: KA-01-AB-1234 (Driver: Ramesh, 4 seats)", icon: "🚗", status: "pending" },
+                { title: "Generate Route Plan", desc: "TSP optimizes: C1(8:30)→C2(8:38)→C3(8:45)→C4(8:52)", icon: "🗺️", status: "pending" },
+                { title: "Show Route to Admin", desc: "Display interactive map with route details", icon: "📊", status: "pending" },
+                { title: "Admin Confirms", desc: "Admin reviews and clicks 'Confirm Assignment'", icon: "✅", status: "pending" },
+                { title: "✅ Save to Database", desc: "POST /api/assignments/create - Data persisted!", icon: "💾", status: "pending" },
+                { title: "✅ Notify Customer 1 (John)", desc: "SMS: 'Pickup 8:30 AM, Stop #1' + Email + Push", icon: "📱", status: "pending" },
+                { title: "✅ Notify Customer 2 (Sarah)", desc: "SMS: 'Pickup 8:38 AM, Stop #2' + Email + Push", icon: "📱", status: "pending" },
+                { title: "✅ Notify Customer 3 (Mike)", desc: "SMS: 'Pickup 8:45 AM, Stop #3' + Email + Push", icon: "📱", status: "pending" },
+                { title: "✅ Notify Customer 4 (Lisa)", desc: "SMS: 'Pickup 8:52 AM, Stop #4' + Email + Push", icon: "📱", status: "pending" },
+                { title: "✅ Notify Driver (Ramesh)", desc: "Push: 'New route assigned' + In-app navigation", icon: "🚗", status: "pending" },
+                { title: "✅ Enable Live Tracking", desc: "Driver GPS streams to customers every 10 seconds", icon: "📡", status: "pending" },
+                { title: "✅ Morning Reminders", desc: "30min before: 'Driver arriving soon' notifications", icon: "⏰", status: "pending" },
+                { title: "✅ Real-time ETAs", desc: "Customers see 'Driver is 8 mins away' with live map", icon: "🕐", status: "pending" },
+                { title: "🎉 Assignment Complete!", desc: "Everyone informed, tracked, and ready!", icon: "🎉", status: "pending" }
+            ]
+        };
+
+        const customers = [
+            { id: 'C1', name: 'John', time: '8:30 AM', seq: 1, lat: 20, lng: 30 },
+            { id: 'C2', name: 'Sarah', time: '8:38 AM', seq: 2, lat: 25, lng: 45 },
+            { id: 'C3', name: 'Mike', time: '8:45 AM', seq: 3, lat: 35, lng: 55 },
+            { id: 'C4', name: 'Lisa', time: '8:52 AM', seq: 4, lat: 45, lng: 65 }
+        ];
+
+        function switchScenario(scenario) {
+            currentScenario = scenario;
+            currentStep = 0;
+            isPlaying = false;
+            clearInterval(playInterval);
+            
+            document.getElementById('currentTab').className = scenario === 'current' ? 'tab-btn current' : 'tab-btn';
+            document.getElementById('completeTab').className = scenario === 'complete' ? 'tab-btn complete' : 'tab-btn';
+            
+            renderContent();
+            renderTimeline();
+        }
+
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            document.getElementById('playIcon').textContent = isPlaying ? '⏸️' : '▶️';
+            document.getElementById('playText').textContent = isPlaying ? 'Pause' : 'Play';
+            
+            if (isPlaying) {
+                playInterval = setInterval(() => {
+                    if (currentStep < scenarios[currentScenario].length - 1) {
+                        currentStep++;
+                        renderContent();
+                        renderTimeline();
+                    } else {
+                        togglePlay();
+                    }
+                }, 2000);
+            } else {
+                clearInterval(playInterval);
+            }
+        }
+
+        function resetAnimation() {
+            currentStep = 0;
+            isPlaying = false;
+            clearInterval(playInterval);
+            document.getElementById('playIcon').textContent = '▶️';
+            document.getElementById('playText').textContent = 'Play';
+            renderContent();
+            renderTimeline();
+        }
+
+        function renderContent() {
+            const step = scenarios[currentScenario][currentStep];
+            let html = '';
+
+            // Admin Panel
+            html += `
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-icon admin-icon">👨‍💼</div>
+                        <div class="panel-title">
+                            <h3>Admin Dashboard</h3>
+                            <p>Route Optimization</p>
+                        </div>
+                    </div>
+            `;
+
+            if (currentStep >= 1 && currentStep <= 4) {
+                html += `
+                    <div class="status-card">
+                        <p style="font-weight: bold; margin-bottom: 10px;">📋 Pending Rosters</p>
+                        <div style="font-size: 2em; font-weight: bold; color: #3b82f6;">20 Requests</div>
+                    </div>
+                `;
+            }
+
+            if (currentStep >= 3) {
+                html += `
+                    <div class="status-card warning">
+                        <p style="font-weight: bold; margin-bottom: 5px;">🎯 Optimization Active</p>
+                        <p style="font-size: 0.9em;">Finding best 4-customer cluster...</p>
+                    </div>
+                `;
+            }
+
+            if (currentStep >= 5) {
+                html += `
+                    <div class="status-card success">
+                        <p style="font-weight: bold; margin-bottom: 5px;">✅ Vehicle Found</p>
+                        <p style="font-size: 0.9em;">KA-01-AB-1234 (Driver: Ramesh)</p>
+                        <p style="font-size: 0.85em; color: #059669; margin-top: 5px;">4 seats available</p>
+                    </div>
+                `;
+            }
+
+            if (currentStep >= 6) {
+                html += `
+                    <div class="status-card success">
+                        <p style="font-weight: bold; margin-bottom: 5px;">🗺️ Route Generated</p>
+                        <p style="font-size: 0.85em;">Distance: 12.5 km</p>
+                        <p style="font-size: 0.85em;">Time: 35 minutes</p>
+                        <p style="font-size: 0.85em;">Stops: 4 customers + Office</p>
+                    </div>
+                `;
+            }
+
+            if (currentScenario === 'current' && currentStep >= 9) {
+                html += `
+                    <div class="status-card error">
+                        <p style="font-weight: bold; margin-bottom: 5px;">❌ ISSUE DETECTED</p>
+                        <p style="font-size: 0.9em;">No backend integration!</p>
+                        <p style="font-size: 0.85em; margin-top: 5px;">Data not saved to database</p>
+                    </div>
+                `;
+            }
+
+            if (currentScenario === 'complete' && currentStep >= 9) {
+                html += `
+                    <div class="status-card success">
+                        <p style="font-weight: bold; margin-bottom: 5px;">✅ Assignment Saved</p>
+                        <p style="font-size: 0.85em;">POST /api/assignments/create</p>
+                        <span class="notification-badge badge-success">Database Updated</span>
+                    </div>
+                `;
+            }
+
+            html += `</div>`;
+
+            // Map Panel
+            html += `
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-icon" style="background: #bbf7d0;">🗺️</div>
+                        <div class="panel-title">
+                            <h3>Route Map</h3>
+                            <p>Bangalore, Karnataka</p>
+                        </div>
+                    </div>
+                    <div class="map-container">
+            `;
+
+            if (currentStep >= 4) {
+                customers.forEach((c, i) => {
+                    const isActive = currentStep >= 5 + i;
+                    html += `
+                        <div class="map-point" style="
+                            left: ${c.lng}%; 
+                            top: ${c.lat}%; 
+                            background: ${isActive ? '#3b82f6' : '#d1d5db'};
+                            z-index: ${isActive ? 10 : 5};
+                        ">
+                            ${c.seq}
+                        </div>
+                    `;
+                });
+
+                // Office
+                if (currentStep >= 7) {
+                    html += `
+                        <div class="map-point" style="
+                            left: 75%; 
+                            top: 55%; 
+                            background: #10b981;
+                            width: 50px;
+                            height: 50px;
+                            font-size: 1.5em;
+                        ">
+                            🏢
+                        </div>
+                    `;
+                }
+            } else {
+                html += `
+                    <div style="
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                        height: 100%; 
+                        color: #9ca3af;
+                        font-size: 1.2em;
+                    ">
+                        📍 Waiting for route calculation...
+                    </div>
+                `;
+            }
+
+            html += `
+                    </div>
+                </div>
+            `;
+
+            // Customer/Driver Panel
+            html += `
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-icon customer-icon">👥</div>
+                        <div class="panel-title">
+                            <h3>Customers</h3>
+                            <p>Route Order</p>
+                        </div>
+                    </div>
+                    <div class="customer-list">
+            `;
+
+            customers.forEach((c, i) => {
+                const isActive = currentStep >= 6 && currentStep >= 6 + i;
+                const hasNotification = currentScenario === 'complete' && currentStep >= 10 + i;
+                
+                html += `
+                    <div class="customer-item ${isActive ? 'active' : ''}">
+                        <div class="customer-number">${c.seq}</div>
+                        <div style="flex: 1;">
+                            <div style="font-weight: bold; color: #1f2937;">${c.name}</div>
+                            <div style="font-size: 0.85em; color: #6b7280;">Pickup: ${c.time}</div>
+                            ${hasNotification ? '<span class="notification-badge badge-success">✓ Notified</span>' : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            if (currentScenario === 'complete' && currentStep >= 14) {
+                html += `
+                    <div class="status-card success" style="margin-top: 15px;">
+                        <p style="font-weight: bold; margin-bottom: 5px;">👨‍✈️ Driver: Ramesh</p>
+                        <p style="font-size: 0.85em;">Vehicle: KA-01-AB-1234</p>
+                        <span class="notification-badge badge-success">✓ Notified</span>
+                    </div>
+                `;
+            }
+
+            if (currentScenario === 'complete' && currentStep >= 15) {
+                html += `
+                    <div class="status-card success" style="margin-top: 10px;">
+                        <p style="font-weight: bold; margin-bottom: 5px;">📡 Live Tracking</p>
+                        <p style="font-size: 0.85em;">GPS updates every 10s</p>
+                        <span class="notification-badge badge-success">✓ Active</span>
+                    </div>
+                `;
+            }
+
+            if (currentScenario === 'current' && currentStep >= 11) {
+                html += `
+                    <div class="status-card error" style="margin-top: 15px;">
+                        <p style="font-weight: bold; margin-bottom: 5px;">❌ No Notifications</p>
+                        <p style="font-size: 0.85em;">Customers not informed</p>
+                    </div>
+                    <div class="status-card error" style="margin-top: 10px;">
+                        <p style="font-weight: bold; margin-bottom: 5px;">❌ Driver Unknown</p>
+                        <p style="font-size: 0.85em;">No assignment sent</p>
+                    </div>
+                `;
+            }
+
+            html += `
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('mainContent').innerHTML = html;
+        }
+
+        function renderTimeline() {
+            const steps = scenarios[currentScenario];
+            let html = '';
+
+            steps.forEach((step, index) => {
+                let statusClass = 'pending';
+                if (index < currentStep) statusClass = 'completed';
+                if (index === currentStep) statusClass = 'active';
+                if (step.status === 'error' && index <= currentStep) statusClass = 'error';
+
+                html += `
+                    <div class="timeline-step">
+                        ${index < steps.length - 1 ? '<div class="connector"></div>' : ''}
+                        <div class="step-number ${statusClass}">
+                            ${step.icon}
+                        </div>
+                        <div class="step-content ${index === currentStep ? 'active' : ''}">
+                            <div class="step-title">${step.title}</div>
+                            <div class="step-desc">${step.desc}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('timelineSteps').innerHTML = html;
+        }
+
+        // Initialize
+        renderContent();
+        renderTimeline();
+    </script>
+</body>
+</html>

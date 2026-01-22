@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver App - Complete Structure</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .app-container {
+            max-width: 420px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0,0,0,0.3);
+        }
+        
+        /* Header */
+        .app-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-title {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        
+        .status-indicator {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Page Content */
+        .page-content {
+            padding: 20px;
+            padding-bottom: 100px;
+            min-height: calc(100vh - 140px);
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 420px;
+            max-width: 100vw;
+            background: white;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            padding: 10px 0;
+            z-index: 1000;
+        }
+        
+        .nav-item {
+            text-align: center;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            margin: 0 5px;
+        }
+        
+        .nav-item:hover {
+            background: #f1f5f9;
+        }
+        
+        .nav-item.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .nav-icon {
+            font-size: 1.4em;
+            margin-bottom: 3px;
+        }
+        
+        .nav-label {
+            font-size: 0.7em;
+            font-weight: 600;
+        }
+        
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #f1f5f9;
+        }
+        
+        .card-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Button Styles */
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin: 8px 0;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-success { background: linear-gradient(135deg, #10b981, #059669); }
+        .btn-warning { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .btn-secondary { background: linear-gradient(135deg, #6b7280, #4b5563); }
+        
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            color: #374151;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        /* Statistics */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .stat-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .stat-number {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            font-size: 0.8em;
+            color: #64748b;
+            margin-top: 3px;
+        }
+        
+        /* Trip Items */
+        .trip-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .trip-info h4 {
+            margin-bottom: 5px;
+            color: #1e293b;
+        }
+        
+        .trip-info p {
+            color: #64748b;
+            font-size: 0.9em;
+        }
+        
+        .trip-status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .status-active { background: #dbeafe; color: #1e40af; }
+        .status-completed { background: #d1fae5; color: #065f46; }
+        .status-pending { background: #fef3c7; color: #92400e; }
+        
+        /* Profile Items */
+        .profile-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .profile-item:last-child {
+            border-bottom: none;
+        }
+        
+        .profile-label {
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .profile-value {
+            color: #6b7280;
+        }
+        
+        /* Vehicle Check Items */
+        .check-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-left: 4px solid #e2e8f0;
+        }
+        
+        .check-item.ok { border-left-color: #10b981; background: #ecfdf5; }
+        .check-item.warning { border-left-color: #f59e0b; background: #fffbeb; }
+        
+        .check-status {
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .status-ok { color: #059669; }
+        .status-warning { color: #d97706; }
+        
+        /* Notification Badge */
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        /* Customer List */
+        .customer-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .customer-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+        
+        .customer-info {
+            flex: 1;
+        }
+        
+        .customer-name {
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        .customer-location {
+            font-size: 0.8em;
+            color: #64748b;
+        }
+        
+        .customer-status {
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.7em;
+            font-weight: 600;
+        }
+        
+        /* Emergency Button */
+        .emergency-btn {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1em;
+            animation: pulse-red 2s infinite;
+        }
+        
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        
+        /* Settings Items */
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        
+        .settings-item:hover {
+            background: #e2e8f0;
+        }
+        
+        .settings-icon {
+            font-size: 1.2em;
+            margin-right: 15px;
+        }
+        
+        .settings-label {
+            flex: 1;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .settings-arrow {
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <div class="app-header">
+            <div class="header-title" id="headerTitle">🏠 Dashboard</div>
+            <div class="status-indicator">
+                <span>🟢</span>
+                <span id="statusText">Online</span>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- 1. DASHBOARD PAGE -->
+            <div id="dashboard" class="page active">
+                <div class="card">
+                    <div class="card-title">🚗 Current Trip Status</div>
+                    <div class="trip-item">
+                        <div class="trip-info">
+                            <h4>Trip #TR-1234</h4>
+                            <p>Cyber City → Connaught Place</p>
+                            <p>4 Customers | 45.2 KM</p>
+                        </div>
+                        <div class="trip-status status-active">Active</div>
+                    </div>
+                    <button class="btn btn-warning">📍 Share Location</button>
+                    <button class="btn btn-danger">🏁 End Trip</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">📊 Today's Stats</div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">7</div>
+                            <div class="stat-label">Trips</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">156</div>
+                            <div class="stat-label">KM</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">4.8</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">On-Time</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">🔧 Vehicle Check</div>
+                    <div class="check-item ok">
+                        <span>⛽ Fuel Level</span>
+                        <span class="check-status status-ok">✓ Full</span>
+                    </div>
+                    <div class="check-item warning">
+                        <span>🛢️ Engine Oil</span>
+                        <span class="check-status status-warning">⚠ Low</span>
+                    </div>
+                    <button class="btn btn-warning">Report Issue</button>
+                </div>
+
+                <button class="emergency-btn">🚨 EMERGENCY 🚨</button>
+            </div>
+
+            <!-- 2. TRIPS PAGE -->
+            <div id="trips" class="page">
+                <div class="card">
+                    <div class="card-title">🚀 Start New Trip</div>
+                    <div class="form-group">
+                        <label class="form-label">Trip ID</label>
+                        <input type="text" class="form-input" value="TR-1235" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Starting Odometer</label>
+                        <input type="number" class="form-input" placeholder="Enter current reading">
+                    </div>
+                    <button class="btn btn-success">🚀 Start Trip</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">📋 Scheduled Trips</div>
+                    <div class="trip-item">
+                        <div class="trip-info">
+                            <h4>10:30 AM - TR-1235</h4>
+                            <p>Noida → Gurgaon</p>
+                            <p>3 Customers assigned</p>
+                        </div>
+                        <div class="trip-status status-pending">Pending</div>
+                    </div>
+                    <div class="trip-item">
+                        <div class="trip-info">
+                            <h4>12:00 PM - TR-1236</h4>
+                            <p>Gurgaon → Delhi</p>
+                            <p>4 Customers assigned</p>
+                        </div>
+                        <div class="trip-status status-pending">Pending</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">✅ Recent Trips</div>
+                    <div class="trip-item">
+                        <div class="trip-info">
+                            <h4>9:15 AM - TR-1234</h4>
+                            <p>Cyber City → CP (Current)</p>
+                            <p>4 Customers | 45.2 KM</p>
+                        </div>
+                        <div class="trip-status status-active">Active</div>
+                    </div>
+                    <div class="trip-item">
+                        <div class="trip-info">
+                            <h4>8:00 AM - TR-1233</h4>
+                            <p>Home → Office</p>
+                            <p>5 Customers | 32.1 KM</p>
+                        </div>
+                        <div class="trip-status status-completed">Completed</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. CUSTOMERS PAGE -->
+            <div id="customers" class="page">
+                <div class="card">
+                    <div class="card-title">👥 Current Passengers</div>
+                    <div class="customer-item">
+                        <div class="customer-avatar">SK</div>
+                        <div class="customer-info">
+                            <div class="customer-name">Sarah Kumar</div>
+                            <div class="customer-location">Cyber City Hub</div>
+                        </div>
+                        <div class="customer-status" style="background: #d1fae5; color: #065f46;">Picked Up</div>
+                    </div>
+                    <div class="customer-item">
+                        <div class="customer-avatar">MR</div>
+                        <div class="customer-info">
+                            <div class="customer-name">Mike Rahman</div>
+                            <div class="customer-location">DLF Phase 2</div>
+                        </div>
+                        <div class="customer-status" style="background: #d1fae5; color: #065f46;">Picked Up</div>
+                    </div>
+                    <div class="customer-item">
+                        <div class="customer-avatar">LT</div>
+                        <div class="customer-info">
+                            <div class="customer-name">Lisa Thompson</div>
+                            <div class="customer-location">Sector 29</div>
+                        </div>
+                        <div class="customer-status" style="background: #fef3c7; color: #92400e;">Waiting</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">📱 Communication</div>
+                    <div class="form-group">
+                        <label class="form-label">Broadcast Message</label>
+                        <input type="text" class="form-input" placeholder="Type message to all customers...">
+                    </div>
+                    <button class="btn">📤 Send to All</button>
+                    <button class="btn btn-warning">📞 Call Customer</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">⏰ ETA Management</div>
+                    <div class="form-group">
+                        <label class="form-label">Current ETA</label>
+                        <input type="text" class="form-input" value="10:30 AM (5 min delay)" readonly>
+                    </div>
+                    <button class="btn btn-warning">🚨 Report Delay</button>
+                    <button class="btn">📍 Share Live Location</button>
+                </div>
+            </div>
+
+            <!-- 4. REPORTS PAGE -->
+            <div id="reports" class="page">
+                <div class="card">
+                    <div class="card-title">📈 Performance Summary</div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">247</div>
+                            <div class="stat-label">Total Trips</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">4.8</div>
+                            <div class="stat-label">Avg Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">On-Time %</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">2,450</div>
+                            <div class="stat-label">Total KM</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">📊 Daily Analytics</div>
+                    <div class="form-group">
+                        <label class="form-label">Working Hours Today</label>
+                        <input type="text" class="form-input" value="6h 45min" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Fuel Efficiency</label>
+                        <input type="text" class="form-input" value="12.5 KM/L" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Revenue Generated</label>
+                        <input type="text" class="form-input" value="₹3,450" readonly>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">📋 Trip Reports</div>
+                    <button class="btn">📄 Generate Daily Report</button>
+                    <button class="btn btn-secondary">📊 Weekly Analytics</button>
+                    <button class="btn btn-secondary">📈 Monthly Summary</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">⚠️ Incident Reports</div>
+                    <button class="btn btn-warning">🚨 Report Incident</button>
+                    <button class="btn btn-secondary">📝 View Past Reports</button>
+                </div>
+            </div>
+
+            <!-- 5. PROFILE PAGE -->
+            <div id="profile" class="page">
+                <div class="card">
+                    <div class="card-title">👤 Driver Information</div>
+                    <div class="profile-item">
+                        <span class="profile-label">Name</span>
+                        <span class="profile-value">John Doe</span>
+                    </div>
+                    <div class="profile-item">
+                        <span class="profile-label">Driver ID</span>
+                        <span class="profile-value">DRV-001</span>
+                    </div>
+                    <div class="profile-item">
+                        <span class="profile-label">Phone</span>
+                        <span class="profile-value">+91 98765 43210</span>
+                    </div>
+                    <div class="profile-item">
+                        <span class="profile-label">License Number</span>
+                        <span class="profile-value">DL-0120110012345</span>
+                    </div>
+                    <div class="profile-item">
+                        <span class="profile-label">Vehicle Assigned</span>
+                        <span class="profile-value">BMW-DL-5432</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">📸 Document Verification</div>
+                    <button class="btn">📷 Update Profile Photo</button>
+                    <button class="btn btn-secondary">📋 Update License</button>
+                    <button class="btn btn-secondary">🏥 Medical Certificate</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">⚙️ Account Settings</div>
+                    <div class="settings-item">
+                        <span class="settings-icon">🔔</span>
+                        <span class="settings-label">Notifications</span>
+                        <span class="settings-arrow">→</span>
+                    </div>
+                    <div class="settings-item">
+                        <span class="settings-icon">🌍</span>
+                        <span class="settings-label">Language</span>
+                        <span class="settings-arrow">→</span>
+                    </div>
+                    <div class="settings-item">
+                        <span class="settings-icon">🔒</span>
+                        <span class="settings-label">Privacy</span>
+                        <span class="settings-arrow">→</span>
+                    </div>
+                    <div class="settings-item">
+                        <span class="settings-icon">❓</span>
+                        <span class="settings-label">Help & Support</span>
+                        <span class="settings-arrow">→</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">🚪 Session Control</div>
+                    <button class="btn btn-warning">🔄 Switch Vehicle</button>
+                    <button class="btn btn-danger">🚪 Logout</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-item active" data-page="dashboard">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">Dashboard</div>
+            </div>
+            <div class="nav-item" data-page="trips">
+                <div class="nav-icon">🚗</div>
+                <div class="nav-label">Trips</div>
+                <div class="notification-badge">3</div>
+            </div>
+            <div class="nav-item" data-page="customers">
+                <div class="nav-icon">👥</div>
+                <div class="nav-label">Customers</div>
+            </div>
+            <div class="nav-item" data-page="reports">
+                <div class="nav-icon">📊</div>
+                <div class="nav-label">Reports</div>
+            </div>
+            <div class="nav-item" data-page="profile">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">Profile</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation functionality
+        const navItems = document.querySelectorAll('.nav-item');
+        const pages = document.querySelectorAll('.page');
+        const headerTitle = document.getElementById('headerTitle');
+        
+        const pageHeaders = {
+            dashboard: '🏠 Dashboard',
+            trips: '🚗 My Trips',
+            customers: '👥 Customers',
+            reports: '📊 Reports',
+            profile: '👤 Profile'
+        };
+        
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const targetPage = item.getAttribute('data-page');
+                
+                // Remove active class from all nav items and pages
+                navItems.forEach(nav => nav.classList.remove('active'));
+                pages.forEach(page => page.classList.remove('active'));
+                
+                // Add active class to clicked nav item and corresponding page
+                item.classList.add('active');
+                document.getElementById(targetPage).classList.add('active');
+                
+                // Update header title
+                headerTitle.textContent = pageHeaders[targetPage];
+            });
+        });
+        
+        // Add button click effects
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>

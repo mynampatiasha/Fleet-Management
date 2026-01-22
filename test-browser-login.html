@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Browser Login</title>
+</head>
+<body>
+    <h1>Testing JWT Login from Browser</h1>
+    <button onclick="testLogin()">Test Login</button>
+    <pre id="output"></pre>
+
+    <script>
+        async function testLogin() {
+            const output = document.getElementById('output');
+            output.textContent = 'Testing login...\n';
+            
+            try {
+                const response = await fetch('http://localhost:3001/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: 'admin@abrafleet.com',
+                        password: 'admin123'
+                    })
+                });
+                
+                output.textContent += `Status: ${response.status}\n`;
+                output.textContent += `Status Text: ${response.statusText}\n`;
+                
+                const data = await response.json();
+                output.textContent += `Response:\n${JSON.stringify(data, null, 2)}\n`;
+                
+                if (data.success && data.data && data.data.token) {
+                    output.textContent += `\n✅ Token received: ${data.data.token.substring(0, 50)}...\n`;
+                } else {
+                    output.textContent += `\n❌ No token in response\n`;
+                }
+            } catch (error) {
+                output.textContent += `\n❌ Error: ${error.message}\n`;
+                output.textContent += `Error stack: ${error.stack}\n`;
+            }
+        }
+    </script>
+</body>
+</html>

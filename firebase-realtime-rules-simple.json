@@ -1,0 +1,31 @@
+{
+  "rules": {
+    ".read": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+    ".write": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+    
+    "sos_events": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    
+    "roster_requests": {
+      ".read": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+      ".write": "auth != null"
+    },
+    
+    "notifications": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    
+    "driver_locations": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    
+    "trip_tracking": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    }
+  }
+}

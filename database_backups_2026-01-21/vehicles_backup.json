@@ -1,0 +1,2528 @@
+[
+  {
+    "_id": "69491abf6e04aa748dda830c",
+    "vehicleId": "VH-RAJ-001",
+    "registrationNumber": "KA02CD5678",
+    "make": "Tata",
+    "model": "Ace Gold",
+    "year": 2023,
+    "type": "Mini Truck",
+    "fuelType": "Diesel",
+    "capacity": 4,
+    "color": "White",
+    "chassisNumber": "TATA123456789RAJ",
+    "engineNumber": "ENG987654321RAJ",
+    "insurance": {
+      "policyNumber": "INS789456123RAJ",
+      "provider": "ICICI Lombard",
+      "expiryDate": "2025-08-15T00:00:00.000Z",
+      "status": "active"
+    },
+    "fitness": {
+      "certificateNumber": "FIT789456RAJ",
+      "expiryDate": "2025-05-20T00:00:00.000Z",
+      "status": "valid"
+    },
+    "pollution": {
+      "certificateNumber": "PUC789456RAJ",
+      "expiryDate": "2024-12-30T00:00:00.000Z",
+      "status": "valid"
+    },
+    "assignedDriver": "DRV-100001",
+    "assignedDriverName": "Rajesh Kumar",
+    "status": "active",
+    "organizationId": "ORG-001",
+    "organizationName": "ABRA Fleet Management",
+    "vendor": "Tata Motors",
+    "purchaseDate": "2023-01-15T00:00:00.000Z",
+    "currentMileage": 28450,
+    "lastServiceDate": "2024-11-20T00:00:00.000Z",
+    "nextServiceDue": "2025-02-20T00:00:00.000Z",
+    "fuelEfficiency": 18.5,
+    "createdAt": "2023-01-15T00:00:00.000Z",
+    "updatedAt": "2026-01-06T11:58:24.579Z",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.6568832,
+        13.008896
+      ]
+    },
+    "lastLocationUpdate": "2026-01-02T08:30:41.185Z",
+    "assignedCustomers": [
+      "694a8a867dad313c6ad8b998",
+      "694a8a867dad313c6ad8b99c",
+      {
+        "rosterId": "694a8a867dad313c6ad8b995",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Meera Iyer",
+        "sequence": 1,
+        "pickupTime": "08:32",
+        "assignedAt": "2026-01-06T11:58:24.579Z"
+      }
+    ],
+    "currentRouteDistance": 19.774900000000002,
+    "currentRouteTime": 23,
+    "lastRouteAssignment": "2026-01-06T11:58:24.579Z"
+  },
+  {
+    "_id": "694a7beec1882931f34d490a",
+    "vehicleId": "VH234567",
+    "registrationNumber": "KA02MN3456",
+    "make": "Tata",
+    "model": "Winger",
+    "year": 2023,
+    "type": "mini_bus",
+    "capacity": {
+      "passengers": 14,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 2200,
+      "fuelType": "Diesel",
+      "transmission": "Manual",
+      "mileage": 14.5
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a7fcd0c69d7fbd556eae8",
+      "driverId": "DRV-100002",
+      "name": "Amit Singh",
+      "email": "amit.singh@abrafleet.com",
+      "phone": "+919876543223"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA02MN3456"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:24:30.374Z",
+    "updatedAt": "2025-12-29T05:44:02.220Z",
+    "assignedCustomers": [],
+    "assignedDriverEmail": null,
+    "assignedDriverId": null,
+    "assignedDriverName": null,
+    "driverId": "DRV-100002",
+    "driverName": "Amit Singh"
+  },
+  {
+    "_id": "694a7beec1882931f34d490b",
+    "vehicleId": "VH234568",
+    "registrationNumber": "KA05PQ7890",
+    "make": "Force",
+    "model": "Traveller",
+    "year": 2024,
+    "type": "mini_bus",
+    "capacity": {
+      "passengers": 17,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 2600,
+      "fuelType": "Diesel",
+      "transmission": "Manual",
+      "mileage": 13
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a7fcd0c69d7fbd556eae9",
+      "driverId": "DRV-100003",
+      "name": "Suresh Reddy",
+      "email": "suresh.reddy@abrafleet.com",
+      "phone": "+919876543225"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA05PQ7890"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:24:30.374Z",
+    "updatedAt": "2025-12-29T05:44:02.260Z",
+    "assignedCustomers": [],
+    "assignedDriverEmail": null,
+    "assignedDriverId": null,
+    "assignedDriverName": null,
+    "driverId": "DRV-100003",
+    "driverName": "Suresh Reddy"
+  },
+  {
+    "_id": "694a7beec1882931f34d490c",
+    "vehicleId": "VH234569",
+    "registrationNumber": "KA01RS4567",
+    "make": "Force",
+    "model": "Tempo Traveller",
+    "year": 2023,
+    "type": "VAN",
+    "capacity": {
+      "passengers": 12,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 2200,
+      "fuelType": "Diesel",
+      "transmission": "Manual",
+      "mileage": 12
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a7fcd0c69d7fbd556eaea",
+      "driverId": "DRV-100004",
+      "name": "Vijay Sharma",
+      "email": "vijay.sharma@abrafleet.com",
+      "phone": "+919876543227"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA01RS4567"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:24:30.374Z",
+    "updatedAt": "2025-12-29T05:44:02.307Z",
+    "assignedCustomers": [],
+    "assignedDriverEmail": null,
+    "assignedDriverId": null,
+    "assignedDriverName": null,
+    "driverId": "DRV-100004",
+    "driverName": "Vijay Sharma"
+  },
+  {
+    "_id": "694a7beec1882931f34d490d",
+    "vehicleId": "VH234570",
+    "registrationNumber": "KA03TU8901",
+    "make": "Mahindra",
+    "model": "Tourister",
+    "year": 2024,
+    "type": "VAN",
+    "capacity": {
+      "passengers": 14,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 2500,
+      "fuelType": "Diesel",
+      "transmission": "Manual",
+      "mileage": 11.5
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a7fcd0c69d7fbd556eaeb",
+      "driverId": "DRV-100005",
+      "name": "Prakash Rao",
+      "email": "prakash.rao@abrafleet.com",
+      "phone": "+919876543229"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA03TU8901"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:24:30.374Z",
+    "updatedAt": "2025-12-29T05:44:02.366Z",
+    "assignedCustomers": [],
+    "assignedDriverEmail": null,
+    "assignedDriverId": null,
+    "assignedDriverName": null,
+    "driverId": "DRV-100005",
+    "driverName": "Prakash Rao"
+  },
+  {
+    "_id": "694a7beec1882931f34d490e",
+    "vehicleId": "VH234571",
+    "registrationNumber": "KA04VW2345",
+    "make": "Tata",
+    "model": "LP 410",
+    "year": 2022,
+    "type": "bus",
+    "capacity": {
+      "passengers": 32,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 3800,
+      "fuelType": "Diesel",
+      "transmission": "Manual",
+      "mileage": 8.5
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a7fcd0c69d7fbd556eaec",
+      "driverId": "DRV-100006",
+      "name": "Kiran Kumar",
+      "email": "kiran.kumar@abrafleet.com",
+      "phone": "+919876543231"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA04VW2345"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:24:30.374Z",
+    "updatedAt": "2025-12-29T05:44:02.437Z",
+    "assignedCustomers": [],
+    "assignedDriverEmail": null,
+    "assignedDriverId": null,
+    "assignedDriverName": null,
+    "driverId": "DRV-100006",
+    "driverName": "Kiran Kumar"
+  },
+  {
+    "_id": "694a7beec1882931f34d490f",
+    "vehicleId": "VH234572",
+    "registrationNumber": "KA06XY6789",
+    "make": "Ashok Leyland",
+    "model": "Viking",
+    "year": 2023,
+    "type": "bus",
+    "capacity": {
+      "passengers": 40,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 4000,
+      "fuelType": "Diesel",
+      "transmission": "Manual",
+      "mileage": 7.5
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a7fcd0c69d7fbd556eaed",
+      "driverId": "DRV-100007",
+      "name": "Ramesh Nair",
+      "email": "ramesh.nair@abrafleet.com",
+      "phone": "+919876543233"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA06XY6789"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:24:30.374Z",
+    "updatedAt": "2025-12-29T05:44:02.491Z",
+    "assignedCustomers": [],
+    "assignedDriverEmail": null,
+    "assignedDriverId": null,
+    "assignedDriverName": null,
+    "driverId": "DRV-100007",
+    "driverName": "Ramesh Nair"
+  },
+  {
+    "_id": "694a7beec1882931f34d4910",
+    "vehicleId": "VH234573",
+    "registrationNumber": "KA02AB1234",
+    "make": "Toyota",
+    "model": "Innova Crysta",
+    "year": 2024,
+    "type": "SUV",
+    "capacity": {
+      "passengers": 7,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 2400,
+      "fuelType": "Diesel",
+      "transmission": "Automatic",
+      "mileage": 15.5
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a7fcd0c69d7fbd556eaee",
+      "driverId": "DRV-100008",
+      "name": "Anil Patel",
+      "email": "anil.patel@abrafleet.com",
+      "phone": "+919876543235"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA02AB1234"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:24:30.374Z",
+    "updatedAt": "2025-12-29T05:44:02.543Z",
+    "assignedCustomers": [],
+    "assignedDriverEmail": null,
+    "assignedDriverId": null,
+    "assignedDriverName": null,
+    "driverId": "DRV-100008",
+    "driverName": "Anil Patel"
+  },
+  {
+    "_id": "694a7beec1882931f34d4911",
+    "vehicleId": "VH234574",
+    "registrationNumber": "KA05CD5678",
+    "make": "Mahindra",
+    "model": "Scorpio N",
+    "year": 2023,
+    "type": "SUV",
+    "capacity": {
+      "passengers": 7,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 2200,
+      "fuelType": "Diesel",
+      "transmission": "Manual",
+      "mileage": 14
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a7fcd0c69d7fbd556eaef",
+      "driverId": "DRV-100009",
+      "name": "Sanjay Gupta",
+      "email": "sanjay.gupta@abrafleet.com",
+      "phone": "+919876543237"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA05CD5678"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:24:30.374Z",
+    "updatedAt": "2025-12-29T05:44:02.611Z",
+    "assignedCustomers": [],
+    "assignedDriverEmail": null,
+    "assignedDriverId": null,
+    "assignedDriverName": null,
+    "driverId": "DRV-100009",
+    "driverName": "Sanjay Gupta"
+  },
+  {
+    "_id": "694a7beec1882931f34d4912",
+    "vehicleId": "VH234575",
+    "registrationNumber": "KA01EF9012",
+    "make": "Honda",
+    "model": "City",
+    "year": 2024,
+    "type": "car",
+    "capacity": {
+      "passengers": 5,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Petrol",
+      "engineCapacity": 1500,
+      "fuelType": "Petrol",
+      "transmission": "Automatic",
+      "mileage": 17.5
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a7fcd0c69d7fbd556eaf0",
+      "driverId": "DRV-100010",
+      "name": "Manoj Varma",
+      "email": "manoj.varma@abrafleet.com",
+      "phone": "+919876543239"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA01EF9012"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:24:30.374Z",
+    "updatedAt": "2026-01-02T13:03:17.671Z",
+    "assignedCustomers": [
+      {
+        "rosterId": "694a8a867dad313c6ad8b992",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Rohit Menon",
+        "sequence": 1,
+        "pickupTime": "07:47",
+        "assignedAt": "2025-12-23T12:30:30.884Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b999",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Divya Rao",
+        "sequence": 2,
+        "pickupTime": "08:10",
+        "assignedAt": "2025-12-23T12:30:30.884Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b99d",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Anitha Menon",
+        "sequence": 3,
+        "pickupTime": "08:10",
+        "assignedAt": "2025-12-23T12:30:30.884Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b996",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Rakesh Verma",
+        "sequence": 1,
+        "pickupTime": "08:21",
+        "assignedAt": "2025-12-29T06:23:37.851Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b99a",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Sunil Joshi",
+        "sequence": 1,
+        "pickupTime": "08:40",
+        "assignedAt": "2025-12-29T09:23:13.680Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b998",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Arun Kumar",
+        "sequence": 1,
+        "pickupTime": "08:57",
+        "assignedAt": "2025-12-29T09:24:11.434Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b9a1",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Swathi Krishnan",
+        "sequence": 1,
+        "pickupTime": "07:26",
+        "assignedAt": "2025-12-29T10:03:21.310Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b9a0",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Karthik Srinivas",
+        "sequence": 1,
+        "pickupTime": "09:45",
+        "assignedAt": "2025-12-29T10:12:28.398Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b9a2",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Prakash Deshmukh",
+        "sequence": 1,
+        "pickupTime": "08:51",
+        "assignedAt": "2025-12-29T10:13:21.805Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b9a3",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Radha Bose",
+        "sequence": 1,
+        "pickupTime": "08:12",
+        "assignedAt": "2025-12-29T10:15:08.919Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b9a4",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Vignesh Rao",
+        "sequence": 1,
+        "pickupTime": "09:15",
+        "assignedAt": "2025-12-29T10:19:05.762Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b989",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Manish Gupta",
+        "sequence": 1,
+        "pickupTime": "07:15",
+        "assignedAt": "2025-12-29T10:27:49.674Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b978",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Vijay Kumar",
+        "sequence": 1,
+        "pickupTime": "07:27",
+        "assignedAt": "2025-12-29T10:28:30.355Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b976",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Priya Sharma",
+        "sequence": 1,
+        "pickupTime": "07:58",
+        "assignedAt": "2025-12-29T10:39:21.648Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b97a",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Kiran Patel",
+        "sequence": 1,
+        "pickupTime": "08:00",
+        "assignedAt": "2025-12-29T10:43:14.140Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b97b",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Deepak Joshi",
+        "sequence": 1,
+        "pickupTime": "09:03",
+        "assignedAt": "2025-12-29T10:48:14.933Z"
+      },
+      {
+        "rosterId": "694ce98f9ceaf59f79334341",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Demo Customer",
+        "sequence": 1,
+        "pickupTime": "08:24",
+        "assignedAt": "2025-12-29T11:29:06.742Z"
+      },
+      {
+        "rosterId": "694ce9909ceaf59f79334344",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Demo Customer",
+        "sequence": 1,
+        "pickupTime": "08:24",
+        "assignedAt": "2025-12-29T11:42:19.002Z"
+      },
+      {
+        "rosterId": "6948ec2faf508eba4dcb1720",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Pooja Joshi",
+        "sequence": 1,
+        "pickupTime": "10:15",
+        "assignedAt": "2025-12-29T11:57:30.771Z"
+      },
+      {
+        "rosterId": "6948ec2baf508eba4dcb171f",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Sneha Iyer",
+        "sequence": 2,
+        "pickupTime": "10:15",
+        "assignedAt": "2025-12-29T11:57:30.771Z"
+      },
+      {
+        "rosterId": "6948ec29af508eba4dcb171e",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Lakshmi Pillai",
+        "sequence": 3,
+        "pickupTime": "10:15",
+        "assignedAt": "2025-12-29T11:57:30.771Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b992",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Rohit Menon",
+        "sequence": 1,
+        "pickupTime": "07:24",
+        "assignedAt": "2025-12-30T04:24:43.721Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b99d",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Anitha Menon",
+        "sequence": 2,
+        "pickupTime": "07:36",
+        "assignedAt": "2025-12-30T04:24:43.721Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b999",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Divya Rao",
+        "sequence": 3,
+        "pickupTime": "07:47",
+        "assignedAt": "2025-12-30T04:24:43.721Z"
+      },
+      {
+        "rosterId": "694ce9909ceaf59f79334347",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Demo Customer",
+        "sequence": 1,
+        "pickupTime": "08:24",
+        "assignedAt": "2025-12-30T04:42:01.048Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b98f",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Nisha Jain",
+        "sequence": 1,
+        "pickupTime": "08:58",
+        "assignedAt": "2025-12-30T04:59:01.626Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b98b",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Ramesh Naidu",
+        "sequence": 2,
+        "pickupTime": "08:58",
+        "assignedAt": "2025-12-30T04:59:01.626Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b9a3",
+        "customerId": "",
+        "customerName": "Radha Bose",
+        "sequence": 1,
+        "pickupTime": "08:25",
+        "assignedAt": "2025-12-30T05:22:10.861Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b97a",
+        "customerId": "",
+        "customerName": "Kiran Patel",
+        "sequence": 2,
+        "pickupTime": "08:25",
+        "assignedAt": "2025-12-30T05:22:10.861Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b992",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Rohit Menon",
+        "sequence": 1,
+        "pickupTime": "07:24",
+        "assignedAt": "2025-12-30T06:12:37.699Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b99d",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Anitha Menon",
+        "sequence": 2,
+        "pickupTime": "07:36",
+        "assignedAt": "2025-12-30T06:12:37.699Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b999",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Divya Rao",
+        "sequence": 3,
+        "pickupTime": "07:47",
+        "assignedAt": "2025-12-30T06:12:37.699Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b991",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Anjali Desai",
+        "sequence": 1,
+        "pickupTime": "08:40",
+        "assignedAt": "2025-12-30T06:56:03.248Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b99a",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Sunil Joshi",
+        "sequence": 2,
+        "pickupTime": "08:40",
+        "assignedAt": "2025-12-30T06:56:03.248Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b987",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Venkat Raman",
+        "sequence": 1,
+        "pickupTime": "09:00",
+        "assignedAt": "2025-12-31T11:22:50.266Z"
+      },
+      {
+        "rosterId": "693fcc91c3a6100b317028d7",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Pooja Joshi",
+        "sequence": 1,
+        "pickupTime": "08:45",
+        "assignedAt": "2025-12-31T11:52:00.878Z"
+      },
+      {
+        "rosterId": "693fcc8dc3a6100b317028d6",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Arjun Nair",
+        "sequence": 2,
+        "pickupTime": "09:10",
+        "assignedAt": "2025-12-31T11:52:00.878Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b98f",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Nisha Jain",
+        "sequence": 1,
+        "pickupTime": "08:45",
+        "assignedAt": "2025-12-31T12:15:07.860Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b98b",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Ramesh Naidu",
+        "sequence": 2,
+        "pickupTime": "08:45",
+        "assignedAt": "2025-12-31T12:15:07.860Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b99e",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Ramesh Patil",
+        "sequence": 1,
+        "pickupTime": "08:40",
+        "assignedAt": "2025-12-31T12:37:05.690Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b9a7",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Madhavi Reddy",
+        "sequence": 2,
+        "pickupTime": "08:40",
+        "assignedAt": "2025-12-31T12:37:05.690Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b990",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Vikram Singh",
+        "sequence": 1,
+        "pickupTime": "08:15",
+        "assignedAt": "2026-01-02T04:09:48.663Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b98c",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Srinivas Rao",
+        "sequence": 2,
+        "pickupTime": "08:40",
+        "assignedAt": "2026-01-02T04:09:48.663Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b98e",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Arjun Reddy",
+        "sequence": 1,
+        "pickupTime": "08:33",
+        "assignedAt": "2026-01-02T04:11:16.418Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b988",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Kavita Singh",
+        "sequence": 2,
+        "pickupTime": "08:46",
+        "assignedAt": "2026-01-02T04:11:16.418Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b9a6",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Aravind Kumar",
+        "sequence": 1,
+        "pickupTime": "07:58",
+        "assignedAt": "2026-01-02T04:24:55.401Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b99f",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Lakshmi Naidu",
+        "sequence": 2,
+        "pickupTime": "07:58",
+        "assignedAt": "2026-01-02T04:24:55.401Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b993",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Priya Nair",
+        "sequence": 1,
+        "pickupTime": "09:24",
+        "assignedAt": "2026-01-02T12:22:52.288Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b976",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Priya Sharma",
+        "sequence": 1,
+        "pickupTime": "07:58",
+        "assignedAt": "2026-01-02T12:26:05.854Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b9a3",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Radha Bose",
+        "sequence": 1,
+        "pickupTime": "08:12",
+        "assignedAt": "2026-01-02T13:03:17.671Z"
+      }
+    ],
+    "assignedDriverEmail": null,
+    "assignedDriverId": null,
+    "assignedDriverName": null,
+    "currentRouteDistance": 9.4263,
+    "currentRouteTime": 13,
+    "lastRouteAssignment": "2026-01-02T13:03:17.671Z",
+    "driverId": "DRV-100010",
+    "driverName": "Manoj Varma",
+    "assignedCustomerOrganization": "Unknown Organization",
+    "assignedTripTime": "08:45",
+    "assignedTripType": "both",
+    "currentLoginTime": "08:45",
+    "currentLogoutTime": "17:45",
+    "currentOrganization": "Unknown Organization",
+    "currentRosterType": "both",
+    "currentShift": "Unknown"
+  },
+  {
+    "_id": "694a7beec1882931f34d4913",
+    "vehicleId": "VH234576",
+    "registrationNumber": "KA03GH3456",
+    "make": "Hyundai",
+    "model": "Verna",
+    "year": 2023,
+    "type": "car",
+    "capacity": {
+      "passengers": 5,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 1500,
+      "fuelType": "Diesel",
+      "transmission": "Manual",
+      "mileage": 22
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a82140c69d7fbd556eaf1",
+      "driverId": "DRV-100011",
+      "name": "Harish Iyer",
+      "email": "harish.iyer@abrafleet.com",
+      "phone": "+919876543241"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA03GH3456"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:24:30.374Z",
+    "updatedAt": "2025-12-30T05:41:52.147Z",
+    "assignedCustomers": [
+      {
+        "rosterId": "694a8a867dad313c6ad8b98f",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Nisha Jain",
+        "sequence": 1,
+        "pickupTime": "08:45",
+        "assignedAt": "2025-12-30T05:41:52.147Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b98b",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Ramesh Naidu",
+        "sequence": 2,
+        "pickupTime": "08:45",
+        "assignedAt": "2025-12-30T05:41:52.147Z"
+      }
+    ],
+    "assignedDriverEmail": null,
+    "assignedDriverId": null,
+    "assignedDriverName": null,
+    "driverId": "DRV-100011",
+    "driverName": "Harish Iyer",
+    "currentRouteDistance": 17.600900000000003,
+    "currentRouteTime": 25,
+    "lastRouteAssignment": "2025-12-30T05:41:52.147Z"
+  },
+  {
+    "_id": "694a7cddc1882931f34d4914",
+    "vehicleId": "VH234577",
+    "registrationNumber": "KA07JK1234",
+    "make": "Tata",
+    "model": "Winger",
+    "year": 2024,
+    "type": "mini_bus",
+    "capacity": {
+      "passengers": 13,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 2200,
+      "fuelType": "Diesel",
+      "transmission": "Manual",
+      "mileage": 14
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a82140c69d7fbd556eaf2",
+      "driverId": "DRV-100012",
+      "name": "Deepak Joshi",
+      "email": "deepak.joshi@abrafleet.com",
+      "phone": "+919876543243"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA07JK1234"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2025-12-29T05:44:02.944Z",
+    "assignedCustomers": [],
+    "driverId": "DRV-100012",
+    "driverName": "Deepak Joshi"
+  },
+  {
+    "_id": "694a7cddc1882931f34d4915",
+    "vehicleId": "VH234578",
+    "registrationNumber": "KA08LM5678",
+    "make": "Force",
+    "model": "Traveller",
+    "year": 2023,
+    "type": "mini_bus",
+    "capacity": {
+      "passengers": 16,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 2600,
+      "fuelType": "Diesel",
+      "transmission": "Manual",
+      "mileage": 12.5
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a82140c69d7fbd556eaf3",
+      "driverId": "DRV-100013",
+      "name": "Naveen Menon",
+      "email": "naveen.menon@abrafleet.com",
+      "phone": "+919876543245"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA08LM5678"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2025-12-29T05:44:03.007Z",
+    "assignedCustomers": [],
+    "driverId": "DRV-100013",
+    "driverName": "Naveen Menon"
+  },
+  {
+    "_id": "694a7cddc1882931f34d4916",
+    "vehicleId": "VH234579",
+    "registrationNumber": "KA09NO9012",
+    "make": "Mahindra",
+    "model": "Tourister",
+    "year": 2024,
+    "type": "mini_bus",
+    "capacity": {
+      "passengers": 15,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 2500,
+      "fuelType": "Diesel",
+      "transmission": "Manual",
+      "mileage": 11.8
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a82140c69d7fbd556eaf4",
+      "driverId": "DRV-100014",
+      "name": "Ravi Desai",
+      "email": "ravi.desai@abrafleet.com",
+      "phone": "+919876543247"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA09NO9012"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2025-12-29T05:44:03.131Z",
+    "assignedCustomers": [],
+    "driverId": "DRV-100014",
+    "driverName": "Ravi Desai"
+  },
+  {
+    "_id": "694a7cddc1882931f34d4917",
+    "vehicleId": "VH234580",
+    "registrationNumber": "KA10PQ3456",
+    "make": "Force",
+    "model": "Tempo Traveller",
+    "year": 2023,
+    "type": "VAN",
+    "capacity": {
+      "passengers": 10,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 2200,
+      "fuelType": "Diesel",
+      "transmission": "Manual",
+      "mileage": 12.2
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a82140c69d7fbd556eaf5",
+      "driverId": "DRV-100015",
+      "name": "Mahesh Bhat",
+      "email": "mahesh.bhat@abrafleet.com",
+      "phone": "+919876543249"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA10PQ3456"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2025-12-29T05:44:03.274Z",
+    "assignedCustomers": [],
+    "driverId": "DRV-100015",
+    "driverName": "Mahesh Bhat"
+  },
+  {
+    "_id": "694a7cddc1882931f34d4918",
+    "vehicleId": "VH234581",
+    "registrationNumber": "KA11RS7890",
+    "make": "Tata",
+    "model": "Winger",
+    "year": 2024,
+    "type": "VAN",
+    "capacity": {
+      "passengers": 12,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 2200,
+      "fuelType": "Diesel",
+      "transmission": "Manual",
+      "mileage": 13.5
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a82140c69d7fbd556eaf6",
+      "driverId": "DRV-100016",
+      "name": "Ganesh Kulkarni",
+      "email": "ganesh.kulkarni@abrafleet.com",
+      "phone": "+919876543251"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA11RS7890"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2025-12-29T05:44:03.403Z",
+    "assignedCustomers": [],
+    "documents": [
+      {
+        "id": "694a7e528c0cd8f0b6c2f766",
+        "documentType": "Insurance",
+        "documentName": "insurance ",
+        "documentUrl": "/api/documents/download/694a7e528c0cd8f0b6c2f766",
+        "uploadDate": "2025-12-23T11:34:42.396Z",
+        "expiryDate": "2026-12-22T18:30:00.000Z",
+        "uploadedBy": "qnwp8d0clDSSNuSm3ugmXYLSI3K2",
+        "fileId": "694a7e528c0cd8f0b6c2f766",
+        "fileName": "Closing Report.pdf",
+        "fileSize": 142000,
+        "contentType": "application/octet-stream"
+      }
+    ],
+    "driverId": "DRV-100016",
+    "driverName": "Ganesh Kulkarni"
+  },
+  {
+    "_id": "694a7cddc1882931f34d4919",
+    "vehicleId": "VH234582",
+    "registrationNumber": "KA12TU1234",
+    "make": "Mahindra",
+    "model": "Tourister",
+    "year": 2023,
+    "type": "VAN",
+    "capacity": {
+      "passengers": 13,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 2500,
+      "fuelType": "Diesel",
+      "transmission": "Manual",
+      "mileage": 11
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a82140c69d7fbd556eaf7",
+      "driverId": "DRV-100017",
+      "name": "Ashok Pillai",
+      "email": "ashok.pillai@abrafleet.com",
+      "phone": "+919876543253"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA12TU1234"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2025-12-29T05:44:03.553Z",
+    "assignedCustomers": [],
+    "driverId": "DRV-100017",
+    "driverName": "Ashok Pillai"
+  },
+  {
+    "_id": "694a7cddc1882931f34d491a",
+    "vehicleId": "VH234583",
+    "registrationNumber": "KA13VW5678",
+    "make": "Tata",
+    "model": "Starbus",
+    "year": 2022,
+    "type": "bus",
+    "capacity": {
+      "passengers": 35,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 4000,
+      "fuelType": "Diesel",
+      "transmission": "Manual",
+      "mileage": 8
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a82140c69d7fbd556eaf8",
+      "driverId": "DRV-100018",
+      "name": "Dinesh Shetty",
+      "email": "dinesh.shetty@abrafleet.com",
+      "phone": "+919876543255"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA13VW5678"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2025-12-29T05:44:03.977Z",
+    "assignedCustomers": [],
+    "driverId": "DRV-100018",
+    "driverName": "Dinesh Shetty"
+  },
+  {
+    "_id": "694a7cddc1882931f34d491b",
+    "vehicleId": "VH234584",
+    "registrationNumber": "KA14XY9012",
+    "make": "Ashok Leyland",
+    "model": "Lynx",
+    "year": 2023,
+    "type": "bus",
+    "capacity": {
+      "passengers": 28,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 3800,
+      "fuelType": "Diesel",
+      "transmission": "Manual",
+      "mileage": 9
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a82140c69d7fbd556eaf9",
+      "driverId": "DRV-100019",
+      "name": "Yogesh Rathod",
+      "email": "yogesh.rathod@abrafleet.com",
+      "phone": "+919876543257"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA14XY9012"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2025-12-29T05:44:04.050Z",
+    "assignedCustomers": [],
+    "driverId": "DRV-100019",
+    "driverName": "Yogesh Rathod"
+  },
+  {
+    "_id": "694a7cddc1882931f34d491c",
+    "vehicleId": "VH234585",
+    "registrationNumber": "KA15ZA3456",
+    "make": "BharatBenz",
+    "model": "Tourist Bus",
+    "year": 2024,
+    "type": "bus",
+    "capacity": {
+      "passengers": 40,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 4200,
+      "fuelType": "Diesel",
+      "transmission": "Manual",
+      "mileage": 7.8
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a82140c69d7fbd556eafa",
+      "driverId": "DRV-100020",
+      "name": "Mohan Kamath",
+      "email": "mohan.kamath@abrafleet.com",
+      "phone": "+919876543259"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA15ZA3456"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2025-12-29T05:44:04.141Z",
+    "assignedCustomers": [],
+    "driverId": "DRV-100020",
+    "driverName": "Mohan Kamath"
+  },
+  {
+    "_id": "694a7cddc1882931f34d491d",
+    "vehicleId": "VH234586",
+    "registrationNumber": "KA16BC7890",
+    "make": "Toyota",
+    "model": "Fortuner",
+    "year": 2024,
+    "type": "SUV",
+    "capacity": {
+      "passengers": 7,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 2800,
+      "fuelType": "Diesel",
+      "transmission": "Automatic",
+      "mileage": 14.5
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694ce98e6e04aa748dda86fc",
+      "driverId": "DRV-123456",
+      "name": "Rajesh Kumar",
+      "email": "rajesh.kumar@abrafleet.com",
+      "phone": "+91-9123456789"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA16BC7890"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2025-12-29T05:44:04.216Z",
+    "assignedCustomers": [],
+    "driverId": "DRV-123456",
+    "driverName": "Rajesh Kumar"
+  },
+  {
+    "_id": "694a7cddc1882931f34d491e",
+    "vehicleId": "VH234587",
+    "registrationNumber": "KA17DE1234",
+    "make": "Ford",
+    "model": "Endeavour",
+    "year": 2023,
+    "type": "SUV",
+    "capacity": {
+      "passengers": 7,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 2200,
+      "fuelType": "Diesel",
+      "transmission": "Automatic",
+      "mileage": 13
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694ce98e6e04aa748dda86fd",
+      "driverId": "DRV-234567",
+      "name": "Suresh Reddy",
+      "email": "suresh.reddy@abrafleet.com",
+      "phone": "+91-9234567890"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA17DE1234"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2025-12-29T05:44:04.328Z",
+    "assignedCustomers": [],
+    "driverId": "DRV-234567",
+    "driverName": "Suresh Reddy"
+  },
+  {
+    "_id": "694a7cddc1882931f34d491f",
+    "vehicleId": "VH234588",
+    "registrationNumber": "KA18FG5678",
+    "make": "Mahindra",
+    "model": "XUV700",
+    "year": 2024,
+    "type": "SUV",
+    "capacity": {
+      "passengers": 7,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 2200,
+      "fuelType": "Diesel",
+      "transmission": "Automatic",
+      "mileage": 16
+    },
+    "status": "ACTIVE",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a7fcd0c69d7fbd556eae7",
+      "driverId": "DRV-100001",
+      "name": "Rajesh Kumar",
+      "email": "rajesh.kumar@abrafleet.com",
+      "phone": "+919876543221"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA18FG5678"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2025-12-27T05:19:19.735Z",
+    "assignedCustomers": [],
+    "currentTripId": "694f6c5863097f0cd1fc874c",
+    "currentTripNumber": "TRIP-12759735-085",
+    "lastTripAssignment": "2025-12-27T05:19:19.735Z"
+  },
+  {
+    "_id": "694a7cddc1882931f34d4920",
+    "vehicleId": "VH234589",
+    "registrationNumber": "KA19HI9012",
+    "make": "Kia",
+    "model": "Carnival",
+    "year": 2023,
+    "type": "SUV",
+    "capacity": {
+      "passengers": 6,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 2200,
+      "fuelType": "Diesel",
+      "transmission": "Automatic",
+      "mileage": 14
+    },
+    "status": "ACTIVE",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a7fcd0c69d7fbd556eae8",
+      "driverId": "DRV-100002",
+      "name": "Amit Singh",
+      "email": "amit.singh@abrafleet.com",
+      "phone": "+919876543223"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA19HI9012"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2025-12-25T07:39:55.693Z",
+    "assignedCustomers": []
+  },
+  {
+    "_id": "694a7cddc1882931f34d4921",
+    "vehicleId": "VH234590",
+    "registrationNumber": "KA20JK3456",
+    "make": "Toyota",
+    "model": "Camry",
+    "year": 2024,
+    "type": "car",
+    "capacity": {
+      "passengers": 5,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Petrol",
+      "engineCapacity": 2500,
+      "fuelType": "Petrol",
+      "transmission": "Automatic",
+      "mileage": 15
+    },
+    "status": "ACTIVE",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a7fcd0c69d7fbd556eae9",
+      "driverId": "DRV-100003",
+      "name": "Suresh Reddy",
+      "email": "suresh.reddy@abrafleet.com",
+      "phone": "+919876543225"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA20JK3456"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2025-12-29T05:17:57.208Z",
+    "assignedCustomers": [
+      {
+        "rosterId": "694a8a867dad313c6ad8b992",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Rohit Menon",
+        "sequence": 1,
+        "pickupTime": "07:47",
+        "assignedAt": "2025-12-23T15:10:50.009Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b999",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Divya Rao",
+        "sequence": 2,
+        "pickupTime": "08:10",
+        "assignedAt": "2025-12-23T15:10:50.009Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b99d",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Anitha Menon",
+        "sequence": 3,
+        "pickupTime": "08:10",
+        "assignedAt": "2025-12-23T15:10:50.009Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b990",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Vikram Singh",
+        "sequence": 1,
+        "pickupTime": "08:15",
+        "assignedAt": "2025-12-23T15:27:48.330Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b98c",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Srinivas Rao",
+        "sequence": 2,
+        "pickupTime": "08:40",
+        "assignedAt": "2025-12-23T15:27:48.330Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b995",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Meera Iyer",
+        "sequence": 1,
+        "pickupTime": "08:32",
+        "assignedAt": "2025-12-23T15:28:35.649Z"
+      },
+      {
+        "rosterId": "694cea4aed7bc63d874014de",
+        "tripId": null,
+        "customerId": null,
+        "customerName": "Arjun Sharma",
+        "sequence": 1,
+        "pickupTime": "07:0",
+        "assignedAt": "2025-12-25T07:50:59.195Z"
+      },
+      {
+        "rosterId": "694cea4aed7bc63d874014df",
+        "tripId": null,
+        "customerId": null,
+        "customerName": "Priya Nair",
+        "sequence": 2,
+        "pickupTime": "08:15",
+        "assignedAt": "2025-12-25T07:50:59.195Z"
+      },
+      {
+        "rosterId": "694cea4aed7bc63d874014e0",
+        "tripId": null,
+        "customerId": null,
+        "customerName": "Vikram Singh",
+        "sequence": 3,
+        "pickupTime": "09:30",
+        "assignedAt": "2025-12-25T07:50:59.195Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b991",
+        "tripId": null,
+        "customerId": "CUST-694a8a867dad313c6ad8b991",
+        "customerName": "Anjali Desai",
+        "sequence": 1,
+        "pickupTime": "07:0",
+        "assignedAt": "2025-12-25T07:53:38.157Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b993",
+        "tripId": null,
+        "customerId": "CUST-694a8a867dad313c6ad8b993",
+        "customerName": "Priya Nair",
+        "sequence": 2,
+        "pickupTime": "08:15",
+        "assignedAt": "2025-12-25T07:53:38.157Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b994",
+        "tripId": null,
+        "customerId": "CUST-694a8a867dad313c6ad8b994",
+        "customerName": "Sanjay Kapoor",
+        "sequence": 3,
+        "pickupTime": "09:30",
+        "assignedAt": "2025-12-25T07:53:38.157Z"
+      },
+      {
+        "rosterId": "693fcc91c3a6100b317028d7",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Pooja Joshi",
+        "sequence": 1,
+        "pickupTime": "08:45",
+        "assignedAt": "2025-12-26T05:36:05.634Z"
+      },
+      {
+        "rosterId": "693fcc8dc3a6100b317028d6",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Arjun Nair",
+        "sequence": 2,
+        "pickupTime": "09:10",
+        "assignedAt": "2025-12-26T05:36:05.634Z"
+      },
+      {
+        "rosterId": "693fcc89c3a6100b317028d5",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Sneha Iyer",
+        "sequence": 3,
+        "pickupTime": "09:10",
+        "assignedAt": "2025-12-26T05:36:05.634Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b99e",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Ramesh Patil",
+        "sequence": 1,
+        "pickupTime": "08:40",
+        "assignedAt": "2025-12-26T09:15:57.784Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b9a7",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Madhavi Reddy",
+        "sequence": 2,
+        "pickupTime": "08:40",
+        "assignedAt": "2025-12-26T09:15:57.784Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b98f",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Nisha Jain",
+        "sequence": 1,
+        "pickupTime": "08:45",
+        "assignedAt": "2025-12-26T15:50:00.426Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b98b",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Ramesh Naidu",
+        "sequence": 2,
+        "pickupTime": "08:45",
+        "assignedAt": "2025-12-26T15:50:00.426Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b99c",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Nikhil Sharma",
+        "sequence": 1,
+        "pickupTime": "08:43",
+        "assignedAt": "2025-12-27T04:31:25.099Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b9a6",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Aravind Kumar",
+        "sequence": 1,
+        "pickupTime": "07:58",
+        "assignedAt": "2025-12-27T06:22:31.271Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b99f",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Lakshmi Naidu",
+        "sequence": 2,
+        "pickupTime": "07:58",
+        "assignedAt": "2025-12-27T06:22:31.271Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b975",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Rajesh Kumar",
+        "sequence": 1,
+        "pickupTime": "08:10",
+        "assignedAt": "2025-12-27T09:14:26.544Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b984",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Harish Iyer",
+        "sequence": 2,
+        "pickupTime": "08:10",
+        "assignedAt": "2025-12-27T09:14:26.544Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b98e",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Arjun Reddy",
+        "sequence": 1,
+        "pickupTime": "08:33",
+        "assignedAt": "2025-12-29T04:47:16.079Z"
+      },
+      {
+        "rosterId": "694a8a867dad313c6ad8b988",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Kavita Singh",
+        "sequence": 2,
+        "pickupTime": "08:46",
+        "assignedAt": "2025-12-29T04:47:16.080Z"
+      },
+      {
+        "rosterId": "6948ec26af508eba4dcb171d",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Aditya Sharma",
+        "sequence": 1,
+        "pickupTime": "07:17",
+        "assignedAt": "2025-12-29T05:17:57.208Z"
+      },
+      {
+        "rosterId": "6948ec23af508eba4dcb171c",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Meera Kapoor",
+        "sequence": 2,
+        "pickupTime": "07:40",
+        "assignedAt": "2025-12-29T05:17:57.208Z"
+      },
+      {
+        "rosterId": "6948ec21af508eba4dcb171b",
+        "tripId": null,
+        "customerId": "",
+        "customerName": "Rahul Verma",
+        "sequence": 3,
+        "pickupTime": "07:40",
+        "assignedAt": "2025-12-29T05:17:57.208Z"
+      }
+    ],
+    "currentRouteDistance": 19.774900000000002,
+    "currentRouteTime": 23,
+    "lastRouteAssignment": "2025-12-29T05:17:57.208Z"
+  },
+  {
+    "_id": "694a7cddc1882931f34d4922",
+    "vehicleId": "VH234591",
+    "registrationNumber": "KA21LM7890",
+    "make": "Maruti Suzuki",
+    "model": "Dzire",
+    "year": 2023,
+    "type": "car",
+    "capacity": {
+      "passengers": 5,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Petrol",
+      "engineCapacity": 1200,
+      "fuelType": "Petrol",
+      "transmission": "Manual",
+      "mileage": 22
+    },
+    "status": "ACTIVE",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a7fcd0c69d7fbd556eaea",
+      "driverId": "DRV-100004",
+      "name": "Vijay Sharma",
+      "email": "vijay.sharma@abrafleet.com",
+      "phone": "+919876543227"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA21LM7890"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2025-12-25T07:39:55.825Z",
+    "assignedCustomers": []
+  },
+  {
+    "_id": "694a7cddc1882931f34d4923",
+    "vehicleId": "VH234592",
+    "registrationNumber": "KA22NO1234",
+    "make": "Hyundai",
+    "model": "Creta",
+    "year": 2024,
+    "type": "car",
+    "capacity": {
+      "passengers": 5,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 1500,
+      "fuelType": "Diesel",
+      "transmission": "Automatic",
+      "mileage": 18.5
+    },
+    "status": "ACTIVE",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694a7fcd0c69d7fbd556eaeb",
+      "driverId": "DRV-100005",
+      "name": "Prakash Rao",
+      "email": "prakash.rao@abrafleet.com",
+      "phone": "+919876543229"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA22NO1234"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2025-12-25T07:39:55.896Z",
+    "assignedCustomers": []
+  },
+  {
+    "_id": "694a7cddc1882931f34d4924",
+    "vehicleId": "VH234593",
+    "registrationNumber": "KA23PQ5678",
+    "make": "Tata",
+    "model": "Nexon",
+    "year": 2023,
+    "type": "car",
+    "capacity": {
+      "passengers": 5,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Diesel",
+      "engineCapacity": 1500,
+      "fuelType": "Diesel",
+      "transmission": "Manual",
+      "mileage": 21.5
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "694ce98e6e04aa748dda86fe",
+      "driverId": "DRV-345678",
+      "name": "Mahesh Singh",
+      "email": "mahesh.singh@abrafleet.com",
+      "phone": "+91-9345678901"
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA23PQ5678"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2026-01-02T12:23:58.846Z",
+    "assignedCustomers": [
+      "694a8a867dad313c6ad8b989"
+    ],
+    "driverId": "DRV-345678",
+    "driverName": "Mahesh Singh"
+  },
+  {
+    "_id": "694a7cddc1882931f34d4925",
+    "vehicleId": "VH234594",
+    "registrationNumber": "KA24RS9012",
+    "make": "Volkswagen",
+    "model": "Vento",
+    "year": 2024,
+    "type": "car",
+    "capacity": {
+      "passengers": 5,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Petrol",
+      "engineCapacity": 1500,
+      "fuelType": "Petrol",
+      "transmission": "Automatic",
+      "mileage": 16.5
+    },
+    "status": "ACTIVE",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": "DRV-100003",
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA24RS9012"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2025-12-26T15:54:09.893Z",
+    "assignedCustomers": []
+  },
+  {
+    "_id": "694a7cddc1882931f34d4926",
+    "vehicleId": "VH234595",
+    "registrationNumber": "KA25TU3456",
+    "make": "Skoda",
+    "model": "Rapid",
+    "year": 2023,
+    "type": "car",
+    "capacity": {
+      "passengers": 5,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Petrol",
+      "engineCapacity": 1500,
+      "fuelType": "Petrol",
+      "transmission": "Manual",
+      "mileage": 17
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "692ea5fe0d67831c266fb4e2",
+      "driverId": "692ea5fe0d67831c266fb4e2",
+      "name": "driver",
+      "email": "driver123@abrafleet.com",
+      "phone": ""
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA25TU3456"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2025-12-29T05:44:04.654Z",
+    "assignedCustomers": [],
+    "driverId": "692ea5fe0d67831c266fb4e2",
+    "driverName": "driver"
+  },
+  {
+    "_id": "694a7cddc1882931f34d4927",
+    "vehicleId": "VH234596",
+    "registrationNumber": "KA26VW7890",
+    "make": "Nissan",
+    "model": "Kicks",
+    "year": 2024,
+    "type": "car",
+    "capacity": {
+      "passengers": 5,
+      "luggage": 0
+    },
+    "specifications": {
+      "engineType": "Petrol",
+      "engineCapacity": 1500,
+      "fuelType": "Petrol",
+      "transmission": "Automatic",
+      "mileage": 16
+    },
+    "status": "active",
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "assignedDriver": {
+      "_id": "69412e025cf362fd9237aa82",
+      "driverId": "DRV-852306",
+      "name": "Asha Mynampati",
+      "email": "drivertest@gmail.com",
+      "phone": ""
+    },
+    "insurance": {
+      "provider": "",
+      "policyNumber": "",
+      "expiryDate": null
+    },
+    "registration": {
+      "expiryDate": null,
+      "rcNumber": "KA26VW7890"
+    },
+    "maintenance": {
+      "lastServiceDate": null,
+      "nextServiceDue": null,
+      "serviceHistory": []
+    },
+    "fuelLevel": 100,
+    "createdAt": "2025-12-23T11:28:29.814Z",
+    "updatedAt": "2025-12-29T05:44:04.838Z",
+    "assignedCustomers": [],
+    "driverId": "DRV-852306",
+    "driverName": "Asha Mynampati"
+  },
+  {
+    "_id": "694ce98f6e04aa748dda86ff",
+    "vehicleId": "VH123456",
+    "assignedDriver": null,
+    "capacity": {
+      "passengers": 7
+    },
+    "createdAt": "2025-12-25T07:36:47.743Z",
+    "make": "Toyota",
+    "model": "Innova",
+    "registrationNumber": "KA01AB1234",
+    "status": "active",
+    "type": "van",
+    "updatedAt": "2025-12-25T07:36:47.743Z"
+  },
+  {
+    "_id": "694ce98f6e04aa748dda8700",
+    "vehicleId": "VH345678",
+    "assignedDriver": null,
+    "capacity": {
+      "passengers": 12
+    },
+    "createdAt": "2025-12-25T07:36:47.894Z",
+    "make": "Tata",
+    "model": "Winger",
+    "registrationNumber": "KA03EF9012",
+    "status": "active",
+    "type": "mini_bus",
+    "updatedAt": "2025-12-25T07:36:47.894Z"
+  }
+]

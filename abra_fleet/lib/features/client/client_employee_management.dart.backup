@@ -1,0 +1,1207 @@
+// File: lib/features/client/presentation/screens/client_employee_management.dart
+// Client Employee Management with Organization-based Filtering
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:abra_fleet/features/admin/customer_management/domain/entities/customer_entity.dart';
+import 'package:abra_fleet/features/admin/customer_management/presentation/providers/customer_provider.dart';
+import 'package:abra_fleet/features/admin/customer_management/customer_form_overlay.dart';
+import 'package:abra_fleet/features/admin/customer_management/bulk_import_overlay.dart';
+import 'package:abra_fleet/features/auth/domain/repositories/auth_repository.dart';
+
+class ClientEmployeeManagement extends StatefulWidget {
+  const ClientEmployeeManagement({Key? key}) : super(key: key);
+
+  @override
+  State<ClientEmployeeManagement> createState() => _ClientEmployeeManagementState();
+}
+
+class _ClientEmployeeManagementState extends State<ClientEmployeeManagement> {
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
+  bool _showAddEmployeeOverlay = false;
+  bool _showBulkImportOverlay = false;
+  CustomerEntity? _editingEmployee;
+  String? _clientOrganizationDomain;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeData();
+    });
+  }
+
+  Future<void> _testSecurityRules() async {
+    try {
+      debugPrint('🧪 Testing security rules...');
+      
+      // Test 1: Can we read our own user document?
+      final currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser != null) {
+        final userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(currentUser.uid)
+            .get();
+        debugPrint('✅ Test 1 passed: Can read own document');
+        debugPrint('   Role: ${userDoc.data()?['role']}');
+        debugPrint('   Email: ${userDoc.data()?['email']}');
+      }
+      
+      // Test 2: Can we query customers?
+      final snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('role', isEqualTo: 'customer')
+          .limit(1)
+          .get();
+      
+      debugPrint('✅ Test 2 passed: Can query customers');
+      debugPrint('   Found ${snapshot.docs.length} documents');
+      
+      if (snapshot.docs.isNotEmpty) {
+        final firstDoc = snapshot.docs.first;
+        debugPrint('   First customer: ${firstDoc.data()['email']}');
+      }
+      
+    } catch (e) {
+      debugPrint('❌ Security rules test failed: $e');
+    }
+  }
+
+  // Comprehensive security rules test for debugging
+  Future<void> detailedSecurityRulesTest() async {
+    try {
+      debugPrint('');
+      debugPrint('═══════════════════════════════════════════════════════');
+      debugPrint('🧪 COMPREHENSIVE SECURITY RULES TEST');
+      debugPrint('═══════════════════════════════════════════════════════');
+      
+      final currentUser = FirebaseAuth.instance.currentUser;
+      
+      if (currentUser == null) {
+        debugPrint('❌ No user logged in');
+        return;
+      }
+      
+      debugPrint('');
+      debugPrint('📋 CURRENT USER INFO:');
+      debugPrint('   UID: ${currentUser.uid}');
+      debugPrint('   Email: ${currentUser.email}');
+      debugPrint('   Email Verified: ${currentUser.emailVerified}');
+      
+      // Test 1: Read own document
+      debugPrint('');
+      debugPrint('📝 TEST 1: Reading own user document...');
+      try {
+        final userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(currentUser.uid)
+            .get();
+        
+        if (userDoc.exists) {
+          final data = userDoc.data()!;
+          debugPrint('   ✅ SUCCESS');
+          debugPrint('   Role: ${data['role']}');
+          debugPrint('   Email: ${data['email']}');
+          debugPrint('   Company: ${data['companyName']}');
+          
+          // Extract and verify domain
+          final email = data['email'] as String;
+          final domain = email.split('@')[1];
+          debugPrint('   Domain: $domain');
+        } else {
+          debugPrint('   ❌ FAILED: Document does not exist');
+        }
+      } catch (e) {
+        debugPrint('   ❌ FAILED: $e');
+      }
+      
+      // Test 2: Query customers with role filter
+      debugPrint('');
+      debugPrint('📝 TEST 2: Querying customers by role...');
+      try {
+        final snapshot = await FirebaseFirestore.instance
+            .collection('users')
+            .where('role', isEqualTo: 'customer')
+            .limit(5)
+            .get();
+        
+        debugPrint('   ✅ SUCCESS');
+        debugPrint('   Found ${snapshot.docs.length} customer documents');
+        
+        if (snapshot.docs.isNotEmpty) {
+          debugPrint('');
+          debugPrint('   📊 Customer Details:');
+          for (var doc in snapshot.docs) {
+            final data = doc.data();
+            debugPrint('   - ${data['name']} (${data['email']}) - Role: ${data['role']}');
+          }
+        } else {
+          debugPrint('   ⚠️ No customers found in database');
+        }
+      } catch (e) {
+        debugPrint('   ❌ FAILED: $e');
+        debugPrint('');
+        debugPrint('   🔍 DIAGNOSIS:');
+        debugPrint('   This error means the security rules are blocking the query.');
+        debugPrint('   The rules should allow clients to read customers.');
+      }
+      
+      // Test 3: Check for customers in same organization
+      debugPrint('');
+      debugPrint('📝 TEST 3: Checking for customers in your organization...');
+      
+      final myEmail = currentUser.email ?? '';
+      final myDomain = myEmail.split('@').length > 1 ? myEmail.split('@')[1] : '';
+      debugPrint('   Looking for customers with domain: @$myDomain');
+      
+      try {
+        final snapshot = await FirebaseFirestore.instance
+            .collection('users')
+            .where('role', isEqualTo: 'customer')
+            .get();
+        
+        debugPrint('   ✅ Query executed, found ${snapshot.docs.length} total customers');
+        
+        // Filter client-side
+        int matchCount = 0;
+        for (var doc in snapshot.docs) {
+          final email = doc.data()['email'] as String?;
+          if (email != null && email.endsWith('@$myDomain')) {
+            matchCount++;
+            final data = doc.data();
+            debugPrint('   ✅ Same org: ${data['name']} ($email)');
+          }
+        }
+        
+        debugPrint('   ✅ Filtered to $matchCount customers in your organization');
+        
+        if (matchCount == 0) {
+          debugPrint('');
+          debugPrint('   ⚠️ WARNING: No customers with @$myDomain found!');
+          debugPrint('   You need to create test customer users with emails like:');
+          debugPrint('   - employee1@$myDomain');
+          debugPrint('   - employee2@$myDomain');
+        }
+        
+      } catch (e) {
+        debugPrint('   ❌ Failed: $e');
+      }
+      
+      debugPrint('');
+      debugPrint('═══════════════════════════════════════════════════════');
+      debugPrint('🏁 TEST COMPLETE');
+      debugPrint('═══════════════════════════════════════════════════════');
+      debugPrint('');
+      
+    } catch (e) {
+      debugPrint('❌ Test suite error: $e');
+    }
+  }
+
+  Future<void> _initializeData() async {
+    if (!mounted) return;
+
+    try {
+      print('🟢 Initializing client employee management');
+      
+      // Get current logged-in user's email
+      final authRepo = Provider.of<AuthRepository>(context, listen: false);
+      final currentUser = await authRepo.getCurrentUserWithRole();
+      
+      if (currentUser.email != null && currentUser.email!.isNotEmpty) {
+        // Extract organization domain from email (e.g., @cognizant.com from client123@cognizant.com)
+        final emailParts = currentUser.email!.split('@');
+        if (emailParts.length == 2) {
+          _clientOrganizationDomain = '@${emailParts[1]}';
+          print('🟢 Client organization domain: $_clientOrganizationDomain');
+          
+          // ✅ FIX: Fetch only organization-specific customers
+          final provider = Provider.of<CustomerProvider>(context, listen: false);
+          await provider.initialize();
+
+          // ✅ Run detailed security rules test (DEBUGGING ONLY)
+          await detailedSecurityRulesTest();
+          
+          // Use the new organization-filtered method
+          await provider.fetchCustomersByOrganization(_clientOrganizationDomain!);
+          
+          print('🟢 Client employee data initialized');
+        } else {
+          throw Exception('Invalid email format: ${currentUser.email}');
+        }
+      } else {
+        throw Exception('No email found for current user');
+      }
+      
+    } catch (e) {
+      print('🔴 Error initializing client employee data: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error loading data: ${e.toString()}'),
+            backgroundColor: Colors.orange,
+            action: SnackBarAction(
+              label: 'Retry',
+              textColor: Colors.white,
+              onPressed: () => _initializeData(),
+            ),
+          ),
+        );
+      }
+    }
+  }
+
+  // Filter employees by organization domain
+  List<CustomerEntity> _getOrganizationEmployees(List<CustomerEntity> allCustomers) {
+    if (_clientOrganizationDomain == null) {
+      return []; // No domain means no employees to show
+    }
+
+    return allCustomers.where((customer) {
+      // Only show employees whose email ends with the client's organization domain
+      return customer.email.endsWith(_clientOrganizationDomain!);
+    }).toList();
+  }
+
+  // Apply search filter on top of organization filter
+  List<CustomerEntity> _getFilteredEmployees(List<CustomerEntity> employees) {
+    if (_searchQuery.isEmpty) return employees;
+    
+    return employees.where((emp) {
+      return emp.name.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+          emp.email.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+          (emp.employeeId?.toLowerCase().contains(_searchQuery.toLowerCase()) ?? false);
+    }).toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF8FAFC),
+      body: Stack(
+        children: [
+          Consumer<CustomerProvider>(
+            builder: (context, customerProvider, child) {
+              if (customerProvider.isLoading && customerProvider.customers.isEmpty) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              if (customerProvider.errorMessage != null && customerProvider.customers.isEmpty) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.error_outline, size: 48, color: Colors.red),
+                      const SizedBox(height: 16),
+                      Text(customerProvider.errorMessage!),
+                      const SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: () => _initializeData(),
+                        child: const Text('Retry'),
+                      ),
+                    ],
+                  ),
+                );
+              }
+
+              // ✅ SIMPLIFIED: Data is already organization-filtered from Firestore
+              final filteredEmployees = _getFilteredEmployees(customerProvider.customers);
+
+              return RefreshIndicator(
+                onRefresh: () => _refreshEmployees(),
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildStatsGrid(customerProvider.customers), // Use all customers for stats
+                      const SizedBox(height: 32),
+                      _buildEmployeeDirectory(filteredEmployees), // Use filtered for display
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+
+          // Add Employee Overlay
+          if (_showAddEmployeeOverlay)
+            _buildEmployeeFormOverlay(),
+
+          // Bulk Import Overlay
+          if (_showBulkImportOverlay)
+            _buildBulkImportOverlay(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatsGrid(List<CustomerEntity> employees) {
+    final activeEmployees = employees.where((e) => e.status.toLowerCase() == 'active').length;
+    final inactiveEmployees = employees.where((e) => e.status.toLowerCase() == 'inactive').length;
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final cardWidth = (constraints.maxWidth - 40) / 3;
+        return Wrap(
+          spacing: 20,
+          runSpacing: 20,
+          children: [
+            _buildStatCard(
+              icon: Icons.people,
+              iconColor: const Color(0xFF2563EB),
+              iconBgColor: const Color(0xFF2563EB).withOpacity(0.1),
+              value: employees.length.toString(),
+              label: 'Total Employees',
+              width: cardWidth,
+            ),
+            _buildStatCard(
+              icon: Icons.check_circle,
+              iconColor: const Color(0xFF10B981),
+              iconBgColor: const Color(0xFF10B981).withOpacity(0.1),
+              value: activeEmployees.toString(),
+              label: 'Active Users',
+              width: cardWidth,
+            ),
+            _buildStatCard(
+              icon: Icons.person_remove,
+              iconColor: const Color(0xFFEF4444),
+              iconBgColor: const Color(0xFFEF4444).withOpacity(0.1),
+              value: inactiveEmployees.toString(),
+              label: 'Inactive',
+              width: cardWidth,
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildStatCard({
+    required IconData icon,
+    required Color iconColor,
+    required Color iconBgColor,
+    required String value,
+    required String label,
+    required double width,
+  }) {
+    return Container(
+      width: width,
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+        border: Border.all(
+          color: Colors.black.withOpacity(0.05),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: iconBgColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, color: iconColor, size: 24),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            value,
+            style: const TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF1E293B),
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 14,
+              color: Color(0xFF64748B),
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+// In client_employee_management.dart
+// Find the _buildEmployeeDirectory method, specifically the header Row with action buttons
+
+Widget _buildEmployeeDirectory(List<CustomerEntity> employees) {
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.04),
+          blurRadius: 8,
+          offset: const Offset(0, 2),
+        ),
+      ],
+      border: Border.all(
+        color: Colors.black.withOpacity(0.05),
+      ),
+    ),
+    child: Column(
+      children: [
+        // Header
+        Padding(
+          padding: const EdgeInsets.all(24),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Employee Directory (${employees.length})',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF1E293B),
+                ),
+              ),
+              Wrap(
+                spacing: 8,
+                children: [
+                  // ✅ ADD THIS CLEANUP BUTTON HERE (FIRST IN THE ROW)
+                  _buildActionButton(
+                    icon: Icons.cleaning_services,
+                    label: 'Clean Duplicates',
+                    color: Colors.orange,
+                    onPressed: _cleanupDuplicates, // We'll create this method
+                  ),
+                  _buildActionButton(
+                    icon: Icons.refresh,
+                    label: 'Refresh',
+                    color: const Color(0xFF8B5CF6),
+                    onPressed: () => _refreshEmployees(),
+                  ),
+                  _buildActionButton(
+                    icon: Icons.person_add,
+                    label: 'Add Employee',
+                    color: const Color(0xFF2563EB),
+                    onPressed: () {
+                      setState(() {
+                        _editingEmployee = null;
+                        _showAddEmployeeOverlay = true;
+                      });
+                    },
+                  ),
+                  _buildActionButton(
+                    icon: Icons.upload_file,
+                    label: 'Bulk Upload',
+                    color: const Color(0xFF10B981),
+                    onPressed: () {
+                      setState(() {
+                        _showBulkImportOverlay = true;
+                      });
+                    },
+                  ),
+                  _buildActionButton(
+                    icon: Icons.download,
+                    label: 'Export',
+                    color: const Color(0xFF64748B),
+                    onPressed: () {
+                      _exportEmployees(employees);
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        
+          const Divider(height: 1),
+
+          // Search Bar
+          Padding(
+            padding: const EdgeInsets.all(24),
+            child: TextField(
+              controller: _searchController,
+              onChanged: (value) {
+                setState(() {
+                  _searchQuery = value;
+                });
+              },
+              decoration: InputDecoration(
+                hintText: 'Search by name, email, or employee ID...',
+                hintStyle: TextStyle(color: Colors.grey[400]),
+                prefixIcon: const Icon(Icons.search, color: Color(0xFF64748B)),
+                filled: true,
+                fillColor: const Color(0xFFF8FAFC),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(color: Colors.grey[300]!),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(color: Colors.grey[300]!),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: const BorderSide(color: Color(0xFF2563EB)),
+                ),
+                suffixIcon: _searchController.text.isNotEmpty
+                    ? IconButton(
+                        icon: const Icon(Icons.clear),
+                        onPressed: () {
+                          setState(() {
+                            _searchController.clear();
+                            _searchQuery = '';
+                          });
+                        },
+                      )
+                    : null,
+              ),
+            ),
+          ),
+
+          // Table
+          employees.isEmpty
+              ? Padding(
+                  padding: const EdgeInsets.all(48.0),
+                  child: Column(
+                    children: [
+                      const Icon(Icons.people_outline, size: 64, color: Colors.grey),
+                      const SizedBox(height: 16),
+                      Text(
+                        _searchQuery.isNotEmpty
+                            ? 'No employees match your search'
+                            : 'No employees found\nClick "Add Employee" to create one',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                )
+              : SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: DataTable(
+                    columnSpacing: 40,
+                    headingRowColor: MaterialStateProperty.all(
+                      const Color(0xFFF8FAFC),
+                    ),
+                    columns: const [
+                      DataColumn(
+                        label: Text(
+                          'ID',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                            color: Color(0xFF1E293B),
+                          ),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          'NAME',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                            color: Color(0xFF1E293B),
+                          ),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          'EMAIL',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                            color: Color(0xFF1E293B),
+                          ),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          'PHONE',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                            color: Color(0xFF1E293B),
+                          ),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          'DEPARTMENT',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                            color: Color(0xFF1E293B),
+                          ),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          'STATUS',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                            color: Color(0xFF1E293B),
+                          ),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          'ACTIONS',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                            color: Color(0xFF1E293B),
+                          ),
+                        ),
+                      ),
+                    ],
+                    rows: employees.map((employee) {
+                      return DataRow(
+                        cells: [
+                          DataCell(
+                            Text(
+                              employee.employeeId ?? 'N/A',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF1E293B),
+                              ),
+                            ),
+                          ),
+                          DataCell(Text(employee.name)),
+                          DataCell(
+                            Text(
+                              employee.email,
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                          ),
+                          DataCell(Text(employee.phoneNumber ?? 'N/A')),
+                          DataCell(Text(employee.department ?? 'N/A')),
+                          DataCell(_buildStatusBadge(employee.status)),
+                          DataCell(
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                _buildIconButton(
+                                  icon: Icons.visibility,
+                                  color: const Color(0xFF2563EB),
+                                  onPressed: () => _showEmployeeDetails(employee),
+                                ),
+                                const SizedBox(width: 4),
+                                _buildIconButton(
+                                  icon: Icons.edit,
+                                  color: const Color(0xFFF59E0B),
+                                  onPressed: () {
+                                    setState(() {
+                                      _editingEmployee = employee;
+                                      _showAddEmployeeOverlay = true;
+                                    });
+                                  },
+                                ),
+                                const SizedBox(width: 4),
+                                _buildIconButton(
+                                  icon: Icons.delete,
+                                  color: const Color(0xFFEF4444),
+                                  onPressed: () => _deleteEmployee(employee),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    }).toList(),
+                  ),
+                ),
+          const SizedBox(height: 24),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActionButton({
+    required IconData icon,
+    required String label,
+    required Color color,
+    required VoidCallback onPressed,
+  }) {
+    return ElevatedButton.icon(
+      onPressed: onPressed,
+      icon: Icon(icon, size: 16),
+      label: Text(label),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: color,
+        foregroundColor: Colors.white,
+        elevation: 0,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatusBadge(String status) {
+    Color bgColor;
+    Color textColor;
+    String text = status;
+
+    switch (status.toLowerCase()) {
+      case 'active':
+        bgColor = const Color(0xFF10B981).withOpacity(0.1);
+        textColor = const Color(0xFF10B981);
+        break;
+      case 'inactive':
+        bgColor = const Color(0xFFEF4444).withOpacity(0.1);
+        textColor = const Color(0xFFEF4444);
+        break;
+      case 'pending':
+        bgColor = const Color(0xFFF59E0B).withOpacity(0.1);
+        textColor = const Color(0xFFF59E0B);
+        break;
+      default:
+        bgColor = const Color(0xFF64748B).withOpacity(0.1);
+        textColor = const Color(0xFF64748B);
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: textColor,
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildIconButton({
+    required IconData icon,
+    required Color color,
+    required VoidCallback onPressed,
+  }) {
+    return InkWell(
+      onTap: onPressed,
+      borderRadius: BorderRadius.circular(6),
+      child: Container(
+        padding: const EdgeInsets.all(6),
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Icon(icon, size: 16, color: color),
+      ),
+    );
+  }
+
+  Widget _buildEmployeeFormOverlay() {
+    return CustomerFormOverlay(
+      customer: _editingEmployee,
+      onClose: () {
+        if (mounted) {
+          setState(() {
+            _showAddEmployeeOverlay = false;
+            _editingEmployee = null;
+          });
+        }
+      },
+      onSaved: () async {
+        if (mounted) {
+          setState(() {
+            _showAddEmployeeOverlay = false;
+            _editingEmployee = null;
+          });
+          await _refreshEmployees();
+        }
+      },
+    );
+  }
+
+  Widget _buildBulkImportOverlay() {
+    return BulkImportOverlay(
+      onClose: () {
+        if (mounted) {
+          setState(() {
+            _showBulkImportOverlay = false;
+          });
+        }
+      },
+      onImported: () async {
+        if (mounted) {
+          setState(() {
+            _showBulkImportOverlay = false;
+          });
+          await _refreshEmployees();
+          
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Bulk import completed successfully'),
+                backgroundColor: Colors.green,
+                duration: Duration(seconds: 2),
+              ),
+            );
+          }
+        }
+      },
+    );
+  }
+
+  Future<void> _refreshEmployees() async {
+    if (_clientOrganizationDomain == null) {
+      print('⚠️ No organization domain set, cannot refresh');
+      return;
+    }
+    
+    try {
+      // ✅ Use organization-filtered fetch
+      await Provider.of<CustomerProvider>(context, listen: false)
+          .fetchCustomersByOrganization(_clientOrganizationDomain!);
+      
+      print('🟢 Employees refreshed successfully');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Employee list refreshed'),
+            backgroundColor: Color(0xFF10B981),
+            duration: Duration(seconds: 1),
+          ),
+        );
+      }
+    } catch (e) {
+      print('🔴 Error refreshing employees: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error refreshing: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  void _showEmployeeDetails(CustomerEntity employee) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        title: Text(employee.name),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildDetailRow('ID', employee.employeeId ?? 'N/A'),
+            _buildDetailRow('Email', employee.email),
+            _buildDetailRow('Phone', employee.phoneNumber ?? 'N/A'),
+            _buildDetailRow('Company', employee.companyName ?? 'N/A'),
+            _buildDetailRow('Department', employee.department ?? 'N/A'),
+            _buildDetailRow('Status', employee.status),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Close'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDetailRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 100,
+            child: Text(
+              '$label:',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF64748B),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: const TextStyle(
+                color: Color(0xFF1E293B),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _deleteEmployee(CustomerEntity employee) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          title: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFEF4444).withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(
+                  Icons.warning,
+                  color: Color(0xFFEF4444),
+                ),
+              ),
+              const SizedBox(width: 12),
+              const Text('Delete Employee'),
+            ],
+          ),
+          content: Text('Are you sure you want to delete ${employee.name}?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(false),
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.of(dialogContext).pop(true),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFEF4444),
+              ),
+              child: const Text('Delete'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirmed == true && mounted) {
+      try {
+        final success = await Provider.of<CustomerProvider>(
+          context,
+          listen: false,
+        ).deleteCustomer(employee.id);
+
+        if (mounted) {
+          if (success) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Row(
+                  children: [
+                    const Icon(Icons.check_circle, color: Colors.white),
+                    const SizedBox(width: 12),
+                    Text('${employee.name} deleted successfully'),
+                  ],
+                ),
+                backgroundColor: const Color(0xFF10B981),
+                behavior: SnackBarBehavior.floating,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            );
+            await _refreshEmployees();
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Failed to delete employee'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Error deleting employee: ${e.toString()}'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    }
+  }
+
+  void _exportEmployees(List<CustomerEntity> employees) {
+    // TODO: Implement CSV export functionality
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Exporting ${employees.length} employees...'),
+        backgroundColor: const Color(0xFF2563EB),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+    );
+  }
+
+  // Add this method near the bottom of _ClientEmployeeManagementState class
+// (After _exportEmployees, before dispose)
+
+Future<void> _cleanupDuplicates() async {
+  // Show confirmation dialog
+  final confirmed = await showDialog<bool>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Row(
+        children: [
+          Icon(Icons.cleaning_services, color: Colors.orange),
+          SizedBox(width: 12),
+          Text('Clean Up Duplicates'),
+        ],
+      ),
+      content: const Text(
+        'This will remove duplicate employee records, keeping only the oldest entry for each email.\n\nThis action cannot be undone. Continue?',
+        style: TextStyle(fontSize: 14),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context, false),
+          child: const Text('Cancel'),
+        ),
+        ElevatedButton(
+          onPressed: () => Navigator.pop(context, true),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.orange,
+          ),
+          child: const Text('Clean Up'),
+        ),
+      ],
+    ),
+  );
+
+  if (confirmed != true) return;
+
+  // Show loading
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) => const Center(
+      child: Card(
+        child: Padding(
+          padding: EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 16),
+              Text('Cleaning up duplicates...'),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+
+  try {
+    final result = await Provider.of<CustomerProvider>(
+      context,
+      listen: false,
+    ).cleanupDuplicateEmployees();
+
+    if (!mounted) return;
+    Navigator.pop(context); // Close loading
+
+    if (result['success'] == true) {
+      // Show success dialog
+      await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Row(
+            children: [
+              Icon(Icons.check_circle, color: Colors.green),
+              SizedBox(width: 12),
+              Text('Cleanup Complete'),
+            ],
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('✅ Duplicates found: ${result['duplicatesFound']}'),
+              Text('✅ Duplicates deleted: ${result['duplicatesDeleted']}'),
+              const SizedBox(height: 12),
+              const Text(
+                'Employee list has been refreshed.',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF10B981),
+              ),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+
+      // Refresh the list
+      if (mounted) {
+        await _refreshEmployees();
+      }
+    } else {
+      throw Exception(result['error'] ?? 'Unknown error');
+    }
+  } catch (e) {
+    if (!mounted) return;
+    Navigator.pop(context); // Close loading
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            const Icon(Icons.error, color: Colors.white),
+            const SizedBox(width: 12),
+            Expanded(child: Text('Error: $e')),
+          ],
+        ),
+        backgroundColor: Colors.red,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+    );
+  }
+}
+
+@override
+void dispose() {
+  _searchController.dispose();
+  super.dispose();
+}
+}

@@ -1,0 +1,33 @@
+{
+  "backupDate": "2026-01-21T04:00:40.103Z",
+  "collections": {
+    "drivers": {
+      "count": 42,
+      "file": "drivers_backup.json",
+      "csvFile": "drivers_backup.csv"
+    },
+    "vehicles": {
+      "count": 33,
+      "file": "vehicles_backup.json",
+      "csvFile": "vehicles_backup.csv"
+    },
+    "trips": {
+      "count": 238,
+      "file": "trips_backup.json",
+      "csvFile": "trips_backup.csv"
+    },
+    "rosters": {
+      "count": 9,
+      "file": "rosters_backup.json"
+    },
+    "users": {
+      "count": 4,
+      "file": "users_backup.json"
+    }
+  },
+  "notes": [
+    "All JSON files contain complete data with all fields",
+    "CSV files contain key fields for quick reference",
+    "To restore: Use MongoDB import tools or custom restore script"
+  ]
+}

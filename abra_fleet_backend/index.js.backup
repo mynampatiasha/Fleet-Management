@@ -1,0 +1,782 @@
+const express = require('express');
+const http = require('http');
+const cors = require('cors');
+const { MongoClient } = require('mongodb');
+
+// Load environment variables with explicit path
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
+
+// Validate critical environment variables
+const requiredEnvVars = ['MONGODB_URI', 'FIREBASE_PROJECT_ID'];
+const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
+
+if (missingVars.length > 0) {
+  console.error('❌ CRITICAL: Missing required environment variables:');
+  missingVars.forEach(varName => {
+    console.error(`   - ${varName}`);
+  });
+  console.error('Please check your .env file and ensure all required variables are set.');
+  process.exit(1);
+}
+
+console.log('✅ Environment variables loaded successfully');
+console.log('   MongoDB URI:', process.env.MONGODB_URI ? 'SET' : 'NOT SET');
+console.log('   Firebase Project ID:', process.env.FIREBASE_PROJECT_ID || 'NOT SET');
+
+// Import Firebase config and middleware
+const admin = require('./config/firebase');
+const { verifyToken, requireRole } = require('./middleware/auth');
+
+// Import email service
+const emailService = require('./services/email_service');
+
+const app = express();
+const server = http.createServer(app);
+const PORT = process.env.PORT || 3000;
+
+// CORS Configuration - Allow requests from Flutter web app
+const corsOptions = {
+  origin: function (origin, callback) {
+    console.log('🔍 CORS Check - Origin:', origin);
+
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) {
+      console.log('✅ CORS: Allowing request with no origin');
+      return callback(null, true);
+    }
+
+    // Allow all localhost and 127.0.0.1 ports for development
+    if (origin.startsWith('http://localhost:') ||
+      origin.startsWith('http://127.0.0.1:') ||
+      origin.startsWith('https://localhost:') ||
+      origin.startsWith('https://127.0.0.1:') ||
+      origin.startsWith('http://192.168.1.2:') ||
+      origin.includes('localhost') ||
+      origin.includes('127.0.0.1')) {
+      console.log('✅ CORS: Allowing localhost origin:', origin);
+      return callback(null, true);
+    }
+
+    // Allow production domains
+    if (origin.includes('abra-fleet-management.com') ||
+      origin.includes('abrafleet.com')) {
+      console.log('✅ CORS: Allowing production origin:', origin);
+      return callback(null, true);
+    }
+
+    // Log and reject other origins
+    console.log('❌ CORS: Rejecting origin:', origin);
+    callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With'],
+  exposedHeaders: ['Content-Range', 'X-Content-Range'],
+  maxAge: 86400, // 24 hours
+};
+
+// Middleware
+app.use(cors(corsOptions));
+app.use(express.json({ limit: '10mb' })); // Increased limit for file uploads
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Serve uploaded files statically
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// ✅ REQUEST LOGGING MIDDLEWARE (BEFORE EVERYTHING)
+app.use((req, res, next) => {
+  const timestamp = new Date().toISOString();
+  console.log('\n' + '='.repeat(80));
+  console.log(`📥 INCOMING REQUEST - ${timestamp}`);
+  console.log('='.repeat(80));
+  console.log(`${req.method} ${req.path}`);
+  console.log('Headers:', {
+    'content-type': req.headers['content-type'],
+    'authorization': req.headers.authorization ? 'Bearer ***' : 'None'
+  });
+  if (req.body && Object.keys(req.body).length > 0) {
+    console.log('Body:', JSON.stringify(req.body, null, 2));
+  }
+  console.log('='.repeat(80) + '\n');
+  next();
+});
+
+// MongoDB connection
+let db;
+const client = new MongoClient(process.env.MONGODB_URI, {
+  maxPoolSize: 50,
+  minPoolSize: 10,
+  serverSelectionTimeoutMS: 5000,
+  socketTimeoutMS: 45000,
+});
+
+async function connectToMongoDB() {
+  try {
+    console.log('🔄 Connecting to MongoDB...');
+    await client.connect();
+    db = client.db('abra_fleet');
+    console.log('✅ Connected to MongoDB Atlas!');
+
+    // Test the connection
+    await db.admin().ping();
+    console.log('✅ MongoDB connection verified');
+
+    // Initialize collections and indexes
+    console.log('🔄 Creating indexes...');
+    await Promise.all([
+      db.collection('rosters').createIndex({ driverId: 1, startTime: 1, endTime: 1 }),
+      db.collection('rosters').createIndex({ vehicleId: 1, startTime: 1, endTime: 1 }),
+      db.collection('rosters').createIndex({ status: 1, createdAt: -1 }),
+      db.collection('sos_events').createIndex({ "location": "2dsphere" }),
+      db.collection('trips').createIndex({ driverId: 1, status: 1 }),
+      db.collection('trips').createIndex({ status: 1, startTime: -1 }),
+      db.collection('trips').createIndex({ "currentLocation": "2dsphere" }),
+      db.collection('admin_users').createIndex({ email: 1 }, { unique: true }),
+      db.collection('admin_users').createIndex({ firebaseUid: 1 }),
+      db.collection('users').createIndex({ email: 1 }),
+      db.collection('users').createIndex({ firebaseUid: 1 }),
+      db.collection('leave_requests').createIndex({ status: 1, createdAt: -1 }),
+    ]).catch(err => {
+      console.warn('⚠️  Some indexes failed to create (may already exist):', err.message);
+    });
+    console.log('✅ Indexes created');
+
+  } catch (error) {
+    console.error('❌ MongoDB connection failed:', error);
+    console.error('   Error message:', error.message);
+    console.error('   Connection string:', process.env.MONGODB_URI ? 'SET (hidden)' : 'NOT SET');
+    process.exit(1);
+  }
+}
+
+// ✅ ENHANCED DB MIDDLEWARE WITH LOGGING AND NULL SAFETY
+// ✅ ENHANCED DB MIDDLEWARE WITH LOGGING AND NULL SAFETY
+// ✅ ENHANCED DB MIDDLEWARE WITH LOGGING AND NULL SAFETY
+app.use((req, res, next) => {
+  if (!db) {
+    console.error('❌ DATABASE NOT AVAILABLE');
+    console.error('   Path:', req.path);
+    console.error('   Method:', req.method);
+    return res.status(500).json({
+      success: false,
+      error: 'Database connection not established',
+      message: 'Server is starting up. Please try again in a moment.',
+      code: 'DB_NOT_READY'
+    });
+  }
+
+  // Add null-safe database wrapper
+  req.db = {
+    ...db,
+    // Wrap collection method with null safety
+    collection: (name) => {
+      if (!name || typeof name !== 'string') {
+        throw new Error('Collection name must be a non-empty string');
+      }
+      return db.collection(name);
+    }
+  };
+
+  // ✅ CRITICAL: Make MongoDB CLIENT available (NOT db)
+  // client = MongoClient instance (has startSession method)
+  // db = Database instance (does NOT have startSession method)
+  req.mongoClient = client;  // Use a different name to avoid confusion
+
+  next();
+});
+
+// Import routes
+const authRoutes = require('./routes/auth');
+const adminUsersRoutes = require('./routes/admin-users');
+const adminDriverRoutes = require('./routes/admin-drivers');
+const adminVehicleRoutes = require('./routes/admin-vehicles');
+const adminCustomerRoutes = require('./routes/admin-customers');
+const adminTripRoutes = require('./routes/admin-trips');
+const rosterRoutes = require('./routes/roster_router');
+const routeOptimizationRoutes = require('./routes/route_optimization_router');
+const { router: trackingRoutes, initWebSocket } = require('./routes/tracking');
+const sosRoutes = require('./routes/sos_router');
+const driverDocumentsRouter = require('./routes/driver-documents');
+const accountSettingsRoutes = require('./routes/account-settings');
+const driverReportsRoutes = require('./routes/driver-reports');
+const driverTripsRoutes = require('./routes/driver-trips');
+const driverDashboardRoutes = require('./routes/driver-dashboard');
+const driverRouteDetailsRoutes = require('./routes/driver-route-details');
+const driverProfileRoutes = require('./routes/driver-profile');
+const notificationRoutes = require('./routes/notification_router');
+const clientRoutes = require('./routes/client_router');
+const clientSyncRoutes = require('./routes/client_sync_router');
+const userManagementRoutes = require('./routes/user_management_router');
+const adminUserRoutes = require('./routes/userManagement');
+const roleRoutes = require('./routes/role_router');
+const userRoleRoutes = require('./routes/userRole_router');
+const customerApprovalRoutes = require('./routes/customer_approval_router');
+const documentRoutes = require('./routes/document_router');
+const addressChangeRoutes = require('./routes/address_change_router');
+const passwordResetRoutes = require('./routes/password_reset_router');
+const multiTripRoutes = require('./routes/multi_trip_routes');
+const liveTrackingRoutes = require('./routes/live_tracking_routes');
+const gpsRoutes = require('./routes/gps_tracking_router');
+const maintenanceRoutes = require('./routes/maintenance_router'); // NEW: Maintenance routes
+const tripCreationRoutes = require('./routes/trip_creation_router'); // NEW: Trip creation routes
+const adminAnalyticsRoutes = require('./routes/admin_analytics'); // NEW: Admin analytics routes
+const realTimeFleetRoutes = require('./routes/real_time_fleet_router'); // NEW: Real-time fleet routes
+const feedbackRoutes = require('./routes/feedback_router');  // ← ADD THIS
+const attendanceRoutes = require('./routes/attendance_router');  // ← ADD ATTENDANCE ROUTER
+const noticeRoutes = require('./routes/notice_router');  // ← ADD NOTICE ROUTER
+const hrmEmployeesRoutes = require('./routes/hrm_employees');  // ← ADD HRM EMPLOYEES
+const hrmDepartmentsRoutes = require('./routes/hrm_departments');  // ← ADD THIS
+const hrmLeavesRoutes = require('./routes/hrm_leaves');  // ← ADD HRM LEAVES
+const hrmPayrollRoutes = require('./routes/hrm_payroll');  // ← ADD HRM PAYROLL
+
+// ✅ IMPORT USER ROLE MANAGEMENT ROUTE
+const { router: userRoleManagementRoutes, checkPermission } = require('./routes/user_role_management');
+
+// Initialize WebSocket server
+let wsServer;
+try {
+  wsServer = initWebSocket(server);
+  console.log('✅ WebSocket server initialized with HTTP server');
+} catch (error) {
+  console.error('❌ Failed to initialize WebSocket with HTTP server:', error.message);
+  console.log('⚠️  Starting WebSocket in standalone mode...');
+  wsServer = initWebSocket();
+}
+
+// Make WebSocket server available to routes
+app.set('wsServer', wsServer);
+
+// ==================== PUBLIC ROUTES (NO AUTH REQUIRED) ====================
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    message: 'Abra Travels Backend is running!',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    mongodb: db ? 'connected' : 'disconnected'
+  });
+});
+
+// Email configuration test endpoint
+app.get('/api/test-email-config', (req, res) => {
+  const emailService = require('./services/email_service');
+
+  const config = {
+    initialized: emailService.initialized,
+    smtpHost: process.env.SMTP_HOST || 'Not set',
+    smtpPort: process.env.SMTP_PORT || 'Not set',
+    smtpUser: process.env.SMTP_USER ? 'Set' : 'Not set',
+    smtpPassword: process.env.SMTP_PASSWORD ? 'Set' : 'Not set',
+  };
+
+  res.json({
+    success: true,
+    message: 'Email configuration status',
+    config: config
+  });
+});
+
+// Database test endpoint
+app.get('/test-db', async (req, res) => {
+  try {
+    if (!db) {
+      return res.status(503).json({
+        status: 'error',
+        message: 'Database not connected'
+      });
+    }
+
+    // Use the global db instance to ping, not req.db
+    await db.admin().ping();
+    res.json({
+      status: 'success',
+      message: 'Database connection is working!'
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      message: 'Database connection failed',
+      error: error.message
+    });
+  }
+});
+
+// Public endpoint for receiving SOS alerts
+app.use('/api/sos', sosRoutes);
+
+// SOS Resolution with image upload (protected)
+const sosResolutionRoutes = require('./routes/sos_resolution');
+app.use('/api/sos', verifyToken, sosResolutionRoutes);
+
+// Auth routes (some public, some protected)
+app.use('/api/auth', passwordResetRoutes); // Password reset (public)
+app.use('/api/auth', authRoutes); // Login, profile (protected by verifyToken inside routes)
+
+// ✅ PUBLIC USER VERIFICATION ROUTE (NO AUTH REQUIRED)
+app.get('/api/user-management/verify-user/:email', async (req, res) => {
+  console.log('\n🔍 PUBLIC USER VERIFICATION');
+  console.log('─'.repeat(80));
+
+  try {
+    const email = req.params.email.toLowerCase();
+    console.log('   Email:', email);
+
+    // Find user in MongoDB
+    const User = require('./models/User');
+    const user = await User.findOne({ email: email });
+
+    if (!user) {
+      console.log('   ❌ User not found in MongoDB');
+      return res.status(404).json({
+        success: false,
+        error: 'User not found',
+        message: 'No user found with this email'
+      });
+    }
+
+    console.log('   ✅ User found:', user.name);
+    console.log('   Role:', user.role);
+    console.log('   Status:', user.isActive ? 'Active' : 'Inactive');
+
+    // Check if user is active
+    if (!user.isActive) {
+      console.log('   ⚠️  User account is inactive');
+      return res.status(403).json({
+        success: false,
+        error: 'Account inactive',
+        message: 'Your account is currently inactive. Please contact administrator.'
+      });
+    }
+
+    console.log('✅ USER VERIFICATION SUCCESSFUL');
+    console.log('─'.repeat(80) + '\n');
+
+    res.json({
+      success: true,
+      message: 'User verification successful',
+      data: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        phone: user.phone,
+        isActive: user.isActive,
+        firebaseUid: user.firebaseUid,
+        createdAt: user.createdAt
+      }
+    });
+
+  } catch (error) {
+    console.error('❌ USER VERIFICATION FAILED');
+    console.error('   Error:', error.message);
+    console.error('─'.repeat(80) + '\n');
+
+    res.status(500).json({
+      success: false,
+      error: 'Failed to verify user',
+      message: error.message
+    });
+  }
+});
+
+// ==================== PROTECTED ROUTES (AUTH REQUIRED) ====================
+
+// Test authentication endpoint
+app.get('/api/test-auth', verifyToken, (req, res) => {
+  res.json({
+    status: 'success',
+    message: 'Authentication working!',
+    user: {
+      uid: req.user.uid,
+      email: req.user.email,
+      name: req.user.name,
+      role: req.user.role
+    }
+  });
+});
+
+// ✅ USER ROLE MANAGEMENT ROUTES
+console.log('🔐 Mounting user role management routes at /api/user-management');
+app.use('/api/user-management', verifyToken, userRoleManagementRoutes);
+
+// Admin user management routes (protected)
+app.use('/api/admin/users', verifyToken, adminUsersRoutes);
+
+// Admin analytics routes (protected)
+app.use('/api/admin/analytics', verifyToken, adminAnalyticsRoutes);
+
+// ✅ ADD MISSING RATING ROUTES - Redirect to analytics
+app.get('/api/admin/ratings/average', verifyToken, (req, res, next) => {
+  req.url = '/api/admin/analytics/ratings/average';
+  adminAnalyticsRoutes(req, res, next);
+});
+
+app.get('/api/admin/ratings/overview', verifyToken, (req, res, next) => {
+  req.url = '/api/admin/analytics/ratings/overview';
+  adminAnalyticsRoutes(req, res, next);
+});
+
+// Admin recent activities routes (protected)
+const adminRecentActivitiesRoutes = require('./routes/admin_recent_activities');
+app.use('/api/admin', verifyToken, adminRecentActivitiesRoutes);
+
+// ✅ ROSTER ROUTES WITH SMART PERMISSION CHECKING
+
+// Admin roster routes (requires admin permission)
+
+app.use('/api/roster', verifyToken, rosterRoutes);
+// General roster routes with smart permission checking
+
+
+// Route optimization routes (admin only)
+// Mount route optimization routes at /api/roster for compatibility with Flutter app
+app.use('/api/roster', verifyToken, routeOptimizationRoutes);
+
+// ✅ ALSO MOUNT ROSTER ROUTES AT /api/rosters (plural) for compatibility
+app.use('/api/rosters', verifyToken, (req, res, next) => {
+  // Skip admin check for customer routes
+  const publicEndpoints = ['/customer/', '/active-trip/'];
+  const isPublicEndpoint = publicEndpoints.some(endpoint => req.path.startsWith(endpoint));
+
+  if (isPublicEndpoint) {
+    return next();
+  }
+
+  checkPermission('routes')(req, res, next);
+}, rosterRoutes);
+
+// ✅ PROTECTED API ROUTES WITH PERMISSION CHECKS
+
+// Fleet Management - requires 'fleet' module access
+app.use('/api/admin/vehicles', verifyToken, checkPermission('fleet'), adminVehicleRoutes);
+
+// Maintenance Management - requires 'fleet' module access
+app.use('/api/maintenance', verifyToken, checkPermission('fleet'), maintenanceRoutes);
+
+// Driver Management - requires 'drivers' module access
+app.use('/api/admin/drivers', verifyToken, checkPermission('drivers'), adminDriverRoutes);
+
+// Customer/Employee Management - requires 'customers' module access
+app.use('/api/admin/customers', verifyToken, checkPermission('customers'), adminCustomerRoutes);
+
+// Trip Management - requires 'routes' module access
+app.use('/api/admin/trips', verifyToken, checkPermission('routes'), adminTripRoutes);
+
+// Tracking - requires 'tracking' module access
+app.use('/api/tracking', verifyToken, liveTrackingRoutes);
+
+// Billing - requires 'billing' module access
+app.use('/api/billing', verifyToken, checkPermission('billing'), require('./routes/billing_router'));
+
+// Reports - accessible with 'reports' module
+app.use('/api/driver/reports', verifyToken, checkPermission('reports'), driverReportsRoutes);
+
+// User Management - requires 'users' module access
+app.use('/api/users', verifyToken, checkPermission('users'), userManagementRoutes);
+
+// System Administration - requires 'system' module access
+app.use('/api/admin', verifyToken, checkPermission('system'), adminUserRoutes);
+app.use('/api/roles', verifyToken, checkPermission('system'), roleRoutes);
+app.use('/api/user-roles', verifyToken, checkPermission('system'), userRoleRoutes);
+
+// GPS routes - requires 'fleet' module access
+app.use('/api/gps', verifyToken, checkPermission('fleet'), gpsRoutes);
+
+// Routes accessible to all authenticated users (no specific module required)
+app.use('/api/customer/stats', verifyToken, require('./routes/customer_stats_router'));
+app.use('/api/driver', verifyToken, realTimeFleetRoutes); // Real-time fleet management for drivers
+app.use('/api/driver-documents', verifyToken, driverDocumentsRouter);
+app.use('/api/account-settings', verifyToken, accountSettingsRoutes);
+app.use('/api/driver/trips', verifyToken, driverTripsRoutes);
+app.use('/api/driver/dashboard', verifyToken, driverDashboardRoutes);
+app.use('/api/driver/route', verifyToken, driverRouteDetailsRoutes);
+app.use('/api/drivers', verifyToken, driverProfileRoutes);
+app.use('/api/notifications', verifyToken, notificationRoutes);
+app.use('/api/clients', verifyToken, clientRoutes);
+app.use('/clients', verifyToken, clientSyncRoutes);
+app.use('/api/customer-approval', verifyToken, customerApprovalRoutes);
+app.use('/api/documents', verifyToken, documentRoutes);
+app.use('/api/address-change', verifyToken, addressChangeRoutes);
+
+app.use('/api/trips', verifyToken, multiTripRoutes);
+app.use('/api/trips', verifyToken, tripCreationRoutes); // NEW: Trip creation and management
+app.use('/api/feedback', verifyToken, feedbackRoutes);  // ← ADD THIS
+app.use('/api/attendance', verifyToken, (req, res, next) => {
+  // Pass the database to the attendance router
+  const attendanceRouter = attendanceRoutes(req.db);
+  attendanceRouter(req, res, next);
+});  // ← ADD ATTENDANCE ROUTES
+app.use('/api/notices', verifyToken, (req, res, next) => {
+  // Pass the database to the notice router
+  const noticeRouter = noticeRoutes(req.db);
+  noticeRouter(req, res, next);
+});  // ← ADD NOTICE ROUTES
+
+// HRM Employee Management
+app.use('/api/hrm/employees', verifyToken, hrmEmployeesRoutes);
+
+// HRM Department Management ← ADD THIS SECTION
+app.use('/api/hrm/departments', verifyToken, hrmDepartmentsRoutes);
+
+// HRM Leave Management
+app.use('/api/hrm/leaves', verifyToken, hrmLeavesRoutes);
+
+// HRM Payroll Management
+app.use('/api/hrm/payroll', verifyToken, hrmPayrollRoutes);
+// Basic protected test routes
+app.get('/api/vehicles', verifyToken, async (req, res) => {
+  try {
+    const vehicles = await req.db.collection('vehicles').find({}).limit(10).toArray();
+    res.json({
+      status: 'success',
+      data: vehicles,
+      user: req.user.email
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      message: error.message
+    });
+  }
+});
+
+app.get('/api/trips', verifyToken, async (req, res) => {
+  try {
+    const trips = await req.db.collection('trips').find({}).limit(10).toArray();
+    res.json({
+      status: 'success',
+      data: trips,
+      user: req.user.email
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      message: error.message
+    });
+  }
+});
+
+// ==================== ERROR HANDLERS (MUST BE LAST) ====================
+
+// ✅ GLOBAL ERROR HANDLER
+app.use((err, req, res, next) => {
+  console.error('\n' + '💥'.repeat(40));
+  console.error('UNHANDLED ERROR IN EXPRESS');
+  console.error('💥'.repeat(40));
+  console.error('Error:', err?.message || 'Unknown');
+  console.error('Name:', err?.name || 'Unknown');
+  console.error('Code:', err?.code || 'None');
+  console.error('Path:', req?.path || 'Unknown');
+  console.error('Method:', req?.method || 'Unknown');
+  console.error('User:', req?.user?.email || 'Anonymous');
+  console.error('Stack:', err?.stack || 'No stack');
+  console.error('💥'.repeat(40) + '\n');
+
+  // Determine status code
+  let statusCode = 500;
+  let errorMessage = 'Internal server error';
+
+  if (err?.name === 'ValidationError') {
+    statusCode = 400;
+    errorMessage = 'Validation failed';
+  } else if (err?.name === 'CastError') {
+    statusCode = 400;
+    errorMessage = 'Invalid data format';
+  } else if (err?.message?.includes('ObjectId')) {
+    statusCode = 400;
+    errorMessage = 'Invalid ID format';
+  } else if (err?.code === 'ENOENT') {
+    statusCode = 404;
+    errorMessage = 'Resource not found';
+  } else if (err?.code === 'ECONNREFUSED') {
+    statusCode = 503;
+    errorMessage = 'Service unavailable';
+  }
+
+  // Safety check - ensure response hasn't been sent
+  if (res.headersSent) {
+    console.error('⚠️  Headers already sent, cannot send error response');
+    return next(err);
+  }
+
+  // ALWAYS return JSON, never plain text
+  res.status(statusCode).json({
+    success: false,
+    error: errorMessage,
+    message: err?.message || errorMessage,
+    ...(process.env.NODE_ENV === 'development' && {
+      stack: err?.stack,
+      code: err?.code,
+      name: err?.name
+    })
+  });
+});
+
+// ✅ 404 HANDLER (MUST BE ABSOLUTE LAST)
+app.use((req, res) => {
+  console.log('⚠️  404 - Route not found:', req.method, req.path);
+
+  // Safety check
+  if (res.headersSent) {
+    return;
+  }
+
+  res.status(404).json({
+    success: false,
+    error: 'Route not found',
+    message: `Cannot ${req.method} ${req.path}`,
+    path: req.path,
+    method: req.method
+  });
+});
+
+// ==================== SERVER STARTUP ====================
+
+async function startServer() {
+  try {
+    // Connect to MongoDB first
+    await connectToMongoDB();
+
+    // Initialize email service
+    const emailInitialized = emailService.initialize();
+    if (emailInitialized) {
+      console.log('✅ Email service initialized');
+      // Verify connection in background without blocking startup
+      setTimeout(async () => {
+        try {
+          const verified = await emailService.verifyConnection();
+          if (verified) {
+            console.log('✅ Email server connection verified');
+          }
+        } catch (err) {
+          console.warn('⚠️  Email verification failed during startup:', err.message);
+        }
+      }, 2000); // Wait 2 seconds after startup
+    } else {
+      console.warn('⚠️  Email service not configured - email notifications will be skipped');
+    }
+
+    // Start document expiry checks (every 6 hours)
+    try {
+      notificationRoutes.startDocumentExpiryChecks(db);
+      console.log('✅ Document expiry checks started');
+    } catch (err) {
+      console.warn('⚠️  Document expiry checks failed to start:', err.message);
+    }
+
+    // Start HTTP server
+    server.listen(PORT, '0.0.0.0', () => {
+      console.log('\n' + '🚀'.repeat(40));
+      console.log('ABRA TRAVELS BACKEND SERVER STARTED');
+      console.log('🚀'.repeat(40));
+      console.log(`📍 Server: http://localhost:${PORT}`);
+      console.log(`📍 Health: http://localhost:${PORT}/health`);
+      console.log(`🔐 Auth test: http://localhost:${PORT}/api/test-auth`);
+      console.log(`🌐 WebSocket: ws://localhost:${PORT}`);
+      console.log(`📱 Mobile: http://192.168.1.2:${PORT}`);
+      console.log('🚀'.repeat(40) + '\n');
+      console.log('✅ Permission-based access control is ACTIVE');
+      console.log('   - Fleet routes require "fleet" module');
+      console.log('   - Driver routes require "drivers" module');
+      console.log('   - Customer routes require "customers" module');
+      console.log('   - Routes require "routes" module');
+      console.log('   - Billing routes require "billing" module');
+      console.log('   - System routes require "system" module');
+      console.log('');
+    });
+  } catch (error) {
+    console.error('❌ FATAL: Server startup failed:', error);
+    console.error('Stack:', error.stack);
+    process.exit(1);
+  }
+}
+
+// Start the server
+startServer().catch(error => {
+  console.error('❌ FATAL: Unhandled error during startup:', error);
+  process.exit(1);
+});
+
+// ==================== PROCESS HANDLERS ====================
+
+// Graceful shutdown
+process.on('SIGINT', async () => {
+  console.log('\n🛑 Shutting down gracefully...');
+  try {
+    // Close MongoDB connection
+    if (client) {
+      await client.close();
+      console.log('✅ Database connection closed');
+    }
+
+    // Close HTTP server
+    server.close(() => {
+      console.log('✅ HTTP server closed');
+      process.exit(0);
+    });
+
+    // Force exit after 10 seconds
+    setTimeout(() => {
+      console.error('⚠️  Forced shutdown after timeout');
+      process.exit(1);
+    }, 10000);
+  } catch (err) {
+    console.error('❌ Error during shutdown:', err);
+    process.exit(1);
+  }
+});
+
+// Handle SIGTERM (for production deployments)
+process.on('SIGTERM', async () => {
+  console.log('\n🛑 SIGTERM received, shutting down...');
+  try {
+    if (client) {
+      await client.close();
+    }
+    server.close(() => {
+      process.exit(0);
+    });
+  } catch (err) {
+    console.error('❌ Error during SIGTERM shutdown:', err);
+    process.exit(1);
+  }
+});
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (error) => {
+  console.error('\n' + '💥'.repeat(40));
+  console.error('UNCAUGHT EXCEPTION');
+  console.error('💥'.repeat(40));
+  console.error('Error:', error.message);
+  console.error('Stack:', error.stack);
+  console.error('💥'.repeat(40) + '\n');
+
+  // Give time for logs to flush
+  setTimeout(() => {
+    process.exit(1);
+  }, 1000);
+});
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('\n' + '💥'.repeat(40));
+  console.error('UNHANDLED PROMISE REJECTION');
+  console.error('💥'.repeat(40));
+  console.error('Promise:', promise);
+  console.error('Reason:', reason);
+  if (reason instanceof Error) {
+    console.error('Stack:', reason.stack);
+  }
+  console.error('💥'.repeat(40) + '\n');
+
+  // Give time for logs to flush
+  setTimeout(() => {
+    process.exit(1);
+  }, 1000);
+});
+
+// Log when server is ready
+console.log('✅ Server script loaded, waiting for startup...');

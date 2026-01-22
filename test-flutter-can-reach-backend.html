@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test if Flutter Can Reach Backend</title>
+</head>
+<body>
+    <h1>Test Backend Connectivity</h1>
+    <button onclick="testHealth()">Test Health Endpoint</button>
+    <button onclick="testLogin()">Test Login Endpoint</button>
+    <pre id="result"></pre>
+
+    <script>
+        async function testHealth() {
+            const resultEl = document.getElementById('result');
+            resultEl.textContent = 'Testing health endpoint...\n';
+
+            try {
+                const response = await fetch('http://localhost:3001/health', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                    }
+                });
+
+                resultEl.textContent += `Status: ${response.status}\n`;
+                const data = await response.json();
+                resultEl.textContent += `Response:\n${JSON.stringify(data, null, 2)}\n`;
+            } catch (error) {
+                resultEl.textContent += `❌ Error: ${error.message}\n`;
+            }
+        }
+
+        async function testLogin() {
+            const resultEl = document.getElementById('result');
+            resultEl.textContent = 'Testing login endpoint...\n';
+
+            try {
+                console.log('🔐 Making login request...');
+                const response = await fetch('http://localhost:3001/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: 'admin@abrafleet.com',
+                        password: 'admin123'
+                    })
+                });
+
+                console.log('📥 Response received:', response.status);
+                resultEl.textContent += `Status: ${response.status}\n`;
+                
+                const text = await response.text();
+                console.log('📄 Response text:', text);
+                resultEl.textContent += `Raw response:\n${text}\n\n`;
+
+                try {
+                    const data = JSON.parse(text);
+                    resultEl.textContent += `Parsed response:\n${JSON.stringify(data, null, 2)}\n`;
+                    
+                    if (data.success && data.data && data.data.token) {
+                        resultEl.textContent += `\n✅ SUCCESS! Token received\n`;
+                    } else {
+                        resultEl.textContent += `\n❌ No token in response\n`;
+                    }
+                } catch (e) {
+                    resultEl.textContent += `❌ Failed to parse JSON: ${e.message}\n`;
+                }
+            } catch (error) {
+                console.error('❌ Request failed:', error);
+                resultEl.textContent += `❌ Error: ${error.message}\n`;
+                resultEl.textContent += `Error type: ${error.constructor.name}\n`;
+            }
+        }
+    </script>
+</body>
+</html>

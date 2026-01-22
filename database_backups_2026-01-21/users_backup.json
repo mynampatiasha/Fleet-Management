@@ -1,0 +1,178 @@
+[
+  {
+    "_id": "692ea5fe0d67831c266fb4e2",
+    "firebaseUid": "gIWMwdkPnFbi17DsoVSrj0Pnonn2",
+    "email": "driver123@abrafleet.com",
+    "fcmTokens": [
+      {
+        "token": "eTipeNnrQf2RKsfTq5AWFF:APA91bFx72Ajl5cmmbJiqqveP9UA3aTGKJHaGtE25ULcOo5nyOUlGZUTaf5lm6is9Ykqm-opLa1XD4YOZwy6ML4UrT2qJq05_VfDK3Na8TtMMUX5leHs_9c",
+        "platform": "mobile",
+        "deviceName": "Android Device",
+        "deviceId": null,
+        "lastUpdated": "2025-12-02T08:40:30.880Z",
+        "userAgent": "Dart/3.9 (dart:io)"
+      },
+      {
+        "token": "eTipeNnrQf2RKsfTq5AWFF:APA91bFx72Ajl5cmmbJiqqveP9UA3aTGKJHaGtE25ULcOo5nyOUlGZUTaf5lm6is9Ykqm-opLa1XD4YOZwy6ML4UrT2qJq05_VfDK3Na8TtMMUX5leHs_9c",
+        "platform": "mobile",
+        "deviceName": "Android Device",
+        "deviceId": null,
+        "lastUpdated": "2025-12-02T09:41:12.269Z",
+        "userAgent": "Dart/3.9 (dart:io)"
+      },
+      {
+        "token": "eTipeNnrQf2RKsfTq5AWFF:APA91bFx72Ajl5cmmbJiqqveP9UA3aTGKJHaGtE25ULcOo5nyOUlGZUTaf5lm6is9Ykqm-opLa1XD4YOZwy6ML4UrT2qJq05_VfDK3Na8TtMMUX5leHs_9c",
+        "platform": "mobile",
+        "deviceName": "Android Device",
+        "deviceId": null,
+        "lastUpdated": "2025-12-02T09:49:14.570Z",
+        "userAgent": "Dart/3.9 (dart:io)"
+      },
+      {
+        "token": "eTipeNnrQf2RKsfTq5AWFF:APA91bFx72Ajl5cmmbJiqqveP9UA3aTGKJHaGtE25ULcOo5nyOUlGZUTaf5lm6is9Ykqm-opLa1XD4YOZwy6ML4UrT2qJq05_VfDK3Na8TtMMUX5leHs_9c",
+        "platform": "mobile",
+        "deviceName": "Android Device",
+        "deviceId": null,
+        "lastUpdated": "2025-12-02T11:28:34.759Z",
+        "userAgent": "Dart/3.9 (dart:io)"
+      },
+      {
+        "token": "eTipeNnrQf2RKsfTq5AWFF:APA91bFx72Ajl5cmmbJiqqveP9UA3aTGKJHaGtE25ULcOo5nyOUlGZUTaf5lm6is9Ykqm-opLa1XD4YOZwy6ML4UrT2qJq05_VfDK3Na8TtMMUX5leHs_9c",
+        "platform": "mobile",
+        "deviceName": "Android Device",
+        "deviceId": null,
+        "lastUpdated": "2025-12-02T11:57:04.183Z",
+        "userAgent": "Dart/3.9 (dart:io)"
+      },
+      {
+        "token": "eTipeNnrQf2RKsfTq5AWFF:APA91bFx72Ajl5cmmbJiqqveP9UA3aTGKJHaGtE25ULcOo5nyOUlGZUTaf5lm6is9Ykqm-opLa1XD4YOZwy6ML4UrT2qJq05_VfDK3Na8TtMMUX5leHs_9c",
+        "platform": "mobile",
+        "deviceName": "Android Device",
+        "deviceId": null,
+        "lastUpdated": "2025-12-05T11:21:21.972Z",
+        "userAgent": "Dart/3.9 (dart:io)"
+      },
+      {
+        "token": "dp2EoDgERXy_UdVDJ6bS9Q:APA91bH6vplczDJtYMmeJFab2s9beRReHQx43bhpfJ1F10yF1r-9cgYkX4JIUE506-6JB95LpvJqXsUvyg6Y9vWxDFJZ63Cd4WBNPIb_Aw9AalGwdSEUhFM",
+        "platform": "mobile",
+        "deviceName": "Android Device",
+        "deviceId": null,
+        "lastUpdated": "2025-12-06T11:12:42.819Z",
+        "userAgent": "Dart/3.9 (dart:io)"
+      },
+      {
+        "token": "dp2EoDgERXy_UdVDJ6bS9Q:APA91bH6vplczDJtYMmeJFab2s9beRReHQx43bhpfJ1F10yF1r-9cgYkX4JIUE506-6JB95LpvJqXsUvyg6Y9vWxDFJZ63Cd4WBNPIb_Aw9AalGwdSEUhFM",
+        "platform": "mobile",
+        "deviceName": "Android Device",
+        "deviceId": null,
+        "lastUpdated": "2025-12-06T11:22:20.952Z",
+        "userAgent": "Dart/3.9 (dart:io)"
+      },
+      {
+        "token": "dp2EoDgERXy_UdVDJ6bS9Q:APA91bH6vplczDJtYMmeJFab2s9beRReHQx43bhpfJ1F10yF1r-9cgYkX4JIUE506-6JB95LpvJqXsUvyg6Y9vWxDFJZ63Cd4WBNPIb_Aw9AalGwdSEUhFM",
+        "platform": "mobile",
+        "deviceName": "Android Device",
+        "deviceId": null,
+        "lastUpdated": "2025-12-06T11:28:19.554Z",
+        "userAgent": "Dart/3.9 (dart:io)"
+      },
+      {
+        "token": "dp2EoDgERXy_UdVDJ6bS9Q:APA91bH6vplczDJtYMmeJFab2s9beRReHQx43bhpfJ1F10yF1r-9cgYkX4JIUE506-6JB95LpvJqXsUvyg6Y9vWxDFJZ63Cd4WBNPIb_Aw9AalGwdSEUhFM",
+        "platform": "mobile",
+        "deviceName": "Android Device",
+        "deviceId": null,
+        "lastUpdated": "2025-12-06T11:28:55.619Z",
+        "userAgent": "Dart/3.9 (dart:io)"
+      },
+      {
+        "token": "dp2EoDgERXy_UdVDJ6bS9Q:APA91bH6vplczDJtYMmeJFab2s9beRReHQx43bhpfJ1F10yF1r-9cgYkX4JIUE506-6JB95LpvJqXsUvyg6Y9vWxDFJZ63Cd4WBNPIb_Aw9AalGwdSEUhFM",
+        "platform": "mobile",
+        "deviceName": "Android Device",
+        "deviceId": null,
+        "lastUpdated": "2025-12-06T11:30:10.703Z",
+        "userAgent": "Dart/3.9 (dart:io)"
+      },
+      {
+        "token": "dp2EoDgERXy_UdVDJ6bS9Q:APA91bH6vplczDJtYMmeJFab2s9beRReHQx43bhpfJ1F10yF1r-9cgYkX4JIUE506-6JB95LpvJqXsUvyg6Y9vWxDFJZ63Cd4WBNPIb_Aw9AalGwdSEUhFM",
+        "platform": "mobile",
+        "deviceName": "Android Device",
+        "deviceId": null,
+        "lastUpdated": "2025-12-06T11:30:46.296Z",
+        "userAgent": "Dart/3.9 (dart:io)"
+      }
+    ],
+    "lastTokenUpdate": "2025-12-06T11:30:46.309Z",
+    "mobileFcmToken": "dp2EoDgERXy_UdVDJ6bS9Q:APA91bH6vplczDJtYMmeJFab2s9beRReHQx43bhpfJ1F10yF1r-9cgYkX4JIUE506-6JB95LpvJqXsUvyg6Y9vWxDFJZ63Cd4WBNPIb_Aw9AalGwdSEUhFM",
+    "mobileTokenUpdatedAt": "2025-12-06T11:30:46.309Z",
+    "name": "driver",
+    "role": "driver",
+    "updatedAt": "2025-12-18T12:03:31.804Z",
+    "lastLogin": "2025-12-18T12:03:31.804Z"
+  },
+  {
+    "_id": "69412e025cf362fd9237aa82",
+    "firebaseUid": "wvm5wdXaWNOAqVOXX5l8fWbfYFz2",
+    "email": "drivertest@gmail.com",
+    "name": "Asha Mynampati",
+    "role": "driver",
+    "status": "active",
+    "isApproved": true,
+    "createdAt": "2025-09-03T04:57:41.000Z",
+    "updatedAt": "2025-12-20T10:11:55.339Z",
+    "createdBy": "login_fix_script",
+    "driverId": "DRV-852306",
+    "lastLogin": "2025-12-20T10:11:55.339Z",
+    "fcmTokens": [
+      {
+        "token": "fGxV8_8kRQGYqVXX5l8fWbfYFz2_SAMPLE_MOBILE_TOKEN_FOR_TESTING_PURPOSES_ONLY",
+        "platform": "mobile",
+        "deviceName": "Test Mobile Device",
+        "deviceId": "test-mobile-001",
+        "lastUpdated": "2026-01-10T06:04:10.198Z",
+        "userAgent": "Test Mobile App"
+      },
+      {
+        "token": "dH2K9_3mSRHZpQXX5l8fWbfYFz2_SAMPLE_WEB_TOKEN_FOR_TESTING_PURPOSES_ONLY",
+        "platform": "web",
+        "deviceName": "Test Web Browser",
+        "deviceId": "test-web-001",
+        "lastUpdated": "2026-01-10T06:04:10.198Z",
+        "userAgent": "Test Web Browser"
+      }
+    ],
+    "lastTokenUpdate": "2026-01-10T06:04:10.198Z",
+    "mobileFcmToken": "fGxV8_8kRQGYqVXX5l8fWbfYFz2_SAMPLE_MOBILE_TOKEN_FOR_TESTING_PURPOSES_ONLY",
+    "mobileTokenUpdatedAt": "2026-01-10T06:04:10.198Z",
+    "webFcmToken": "dH2K9_3mSRHZpQXX5l8fWbfYFz2_SAMPLE_WEB_TOKEN_FOR_TESTING_PURPOSES_ONLY",
+    "webTokenUpdatedAt": "2026-01-10T06:04:10.198Z",
+    "lastActive": "2026-01-13T16:55:04.299Z"
+  },
+  {
+    "_id": "69452ab9c2ddf959edac8627",
+    "firebaseUid": "qnwp8d0clDSSNuSm3ugmXYLSI3K2",
+    "email": "admin@abrafleet.com",
+    "name": "admin@abrafleet.com",
+    "role": "super_admin",
+    "fcmToken": null,
+    "createdAt": "2025-12-19T10:36:41.323Z",
+    "updatedAt": "2025-12-19T11:08:25.988Z",
+    "lastLogin": "2025-12-19T11:08:25.988Z",
+    "isActive": true
+  },
+  {
+    "_id": "694ad05356198e8ba2e7628b",
+    "firebaseUid": "aVIF9Ahluig993fCNyZRrIDC3KO2",
+    "email": "rajesh.kumar@abrafleet.com",
+    "name": "Rajesh Kumar",
+    "role": "driver",
+    "status": "active",
+    "modules": [],
+    "permissions": {},
+    "fcmToken": null,
+    "createdAt": "2025-12-23T17:24:35.000Z",
+    "updatedAt": "2026-01-02T06:09:52.076Z",
+    "lastActive": "2026-01-13T17:09:24.700Z",
+    "lastLogin": "2025-12-23T17:24:35.000Z",
+    "isActive": true
+  }
+]

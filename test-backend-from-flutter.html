@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Backend from Flutter Environment</title>
+</head>
+<body>
+    <h1>Backend Connection Test</h1>
+    <button onclick="testLogin()">Test Login API</button>
+    <pre id="output"></pre>
+
+    <script>
+        async function testLogin() {
+            const output = document.getElementById('output');
+            output.textContent = 'Testing...\n';
+            
+            try {
+                output.textContent += '\n1. Testing backend health...\n';
+                const healthResponse = await fetch('http://localhost:3001/health');
+                output.textContent += `Health check status: ${healthResponse.status}\n`;
+                
+                output.textContent += '\n2. Testing login endpoint...\n';
+                const loginResponse = await fetch('http://localhost:3001/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: 'admin@abrafleet.com',
+                        password: 'admin123'
+                    })
+                });
+                
+                output.textContent += `Login status: ${loginResponse.status}\n`;
+                output.textContent += `Login status text: ${loginResponse.statusText}\n`;
+                
+                const loginData = await loginResponse.json();
+                output.textContent += '\n3. Login response:\n';
+                output.textContent += JSON.stringify(loginData, null, 2);
+                
+                if (loginData.success && loginData.data && loginData.data.token) {
+                    output.textContent += '\n\n✅ SUCCESS! Token received:\n';
+                    output.textContent += `Token length: ${loginData.data.token.length}\n`;
+                    output.textContent += `Token preview: ${loginData.data.token.substring(0, 50)}...\n`;
+                } else {
+                    output.textContent += '\n\n❌ FAILED! No token in response\n';
+                }
+                
+            } catch (error) {
+                output.textContent += '\n\n❌ ERROR:\n';
+                output.textContent += error.toString();
+                output.textContent += '\n\nThis usually means:\n';
+                output.textContent += '- Backend is not running\n';
+                output.textContent += '- CORS is blocking the request\n';
+                output.textContent += '- Wrong URL\n';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+{
+  "rules": {
+    // ============================================
+    // POST-MIGRATION FIREBASE RULES
+    // Most data is now in MongoDB, these rules only cover
+    // what still uses Firebase Realtime Database
+    // ============================================
+    
+    // Global admin access for admin@abrafleet.com
+    ".read": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+    ".write": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+    
+    // ============================================
+    // SOS EVENTS (Real-time emergency alerts)
+    // ============================================
+    "sos_events": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["customerId", "status", "timestamp"],
+      "$sosId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+    
+    // ============================================
+    // ROSTER REQUESTS (Real-time notifications)
+    // ============================================
+    "roster_requests": {
+      ".read": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+      ".write": "auth != null",
+      ".indexOn": ["status", "customerId", "createdAt"],
+      "$rosterId": {
+        ".read": "auth != null && auth.token.email == 'admin@abrafleet.com'",
+        ".write": "auth != null"
+      }
+    },
+    
+    // ============================================
+    // NOTIFICATIONS (Real-time push notifications)
+    // ============================================
+    "notifications": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      "$userId": {
+        ".read": "auth != null && (auth.uid == $userId || auth.token.email == 'admin@abrafleet.com')",
+        ".write": "auth != null",
+        ".indexOn": ["isRead", "createdAt", "type"]
+      }
+    },
+    
+    // ============================================
+    // DRIVER LOCATIONS (Real-time tracking)
+    // ============================================
+    "driver_locations": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["timestamp", "driverId"],
+      "$driverId": {
+        ".read": "auth != null",
+        ".write": "auth != null && (auth.uid == $driverId || auth.token.email == 'admin@abrafleet.com')"
+      }
+    },
+    
+    // ============================================
+    // TRIP TRACKING (Real-time trip updates)
+    // ============================================
+    "trip_tracking": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["tripId", "customerId", "driverId", "timestamp"],
+      "$tripId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+    
+    // ============================================
+    // APP CONFIG (Public configuration)
+    // ============================================
+    "config": {
+      ".read": true,
+      ".write": "auth != null && auth.token.email == 'admin@abrafleet.com'"
+    }
+  }
+}

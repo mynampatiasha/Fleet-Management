@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consecutive Trips API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .info { background-color: #d1ecf1; border-color: #bee5eb; }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background-color: #0056b3; }
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .vehicle-id-input {
+            width: 300px;
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚗 Consecutive Trips API Test</h1>
+        <p>Test the consecutive trips API endpoint with different vehicle IDs</p>
+        
+        <div class="test-section info">
+            <h3>📋 API Endpoint</h3>
+            <p><strong>URL:</strong> <code>http://localhost:3001/api/admin/fleet/vehicle/:vehicleId/consecutive-trips</code></p>
+            <p><strong>Method:</strong> GET</p>
+            <p><strong>Authentication:</strong> Required (Bearer token)</p>
+        </div>
+        
+        <div class="test-section">
+            <h3>🧪 Test Vehicle ID</h3>
+            <input type="text" id="vehicleId" class="vehicle-id-input" 
+                   value="694a7cddc1882931f34d4914" 
+                   placeholder="Enter Vehicle ID">
+            <br>
+            <button onclick="testAPI()">Test API</button>
+            <button onclick="testWithoutAuth()">Test Without Auth</button>
+            <button onclick="clearResults()">Clear Results</button>
+        </div>
+        
+        <div id="results"></div>
+    </div>
+
+    <script>
+        async function testAPI() {
+            const vehicleId = document.getElementById('vehicleId').value;
+            const resultsDiv = document.getElementById('results');
+            
+            if (!vehicleId) {
+                showResult('error', 'Please enter a vehicle ID');
+                return;
+            }
+            
+            showResult('info', 'Testing API with authentication...');
+            
+            try {
+                const response = await fetch(`http://localhost:3001/api/admin/fleet/vehicle/${vehicleId}/consecutive-trips`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer test-token',
+                        'x-test-firebase-uid': 'test-admin-uid'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showResult('success', `✅ API Success! Status: ${response.status}`, data);
+                    
+                    if (data.success && data.data) {
+                        const apiData = data.data;
+                        showResult('success', `
+                            🎉 CONSECUTIVE TRIPS DATA:
+                            📋 Vehicle: ${apiData.vehicle.registrationNumber || 'N/A'}
+                            🚗 Current Trip: ${apiData.currentTrip ? 'Yes' : 'None'}
+                            📝 Queued Trips: ${apiData.queuedTrips.length}
+                            📊 Total Trips Today: ${apiData.totalTripsToday}
+                        `);
+                    }
+                } else {
+                    showResult('error', `❌ API Error! Status: ${response.status}`, data);
+                }
+                
+            } catch (error) {
+                showResult('error', `❌ Network Error: ${error.message}`);
+            }
+        }
+        
+        async function testWithoutAuth() {
+            const vehicleId = document.getElementById('vehicleId').value;
+            
+            if (!vehicleId) {
+                showResult('error', 'Please enter a vehicle ID');
+                return;
+            }
+            
+            showResult('info', 'Testing API without authentication...');
+            
+            try {
+                const response = await fetch(`http://localhost:3001/api/admin/fleet/vehicle/${vehicleId}/consecutive-trips`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                showResult('error', `Expected 401 Unauthorized. Status: ${response.status}`, data);
+                
+            } catch (error) {
+                showResult('error', `❌ Network Error: ${error.message}`);
+            }
+        }
+        
+        function showResult(type, message, data = null) {
+            const resultsDiv = document.getElementById('results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-section ${type}`;
+            
+            let content = `<h4>${message}</h4>`;
+            if (data) {
+                content += `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            }
+            
+            resultDiv.innerHTML = content;
+            resultsDiv.appendChild(resultDiv);
+            
+            // Scroll to the new result
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+        
+        // Test on page load
+        window.onload = function() {
+            showResult('info', '🚀 Page loaded! Ready to test the Consecutive Trips API');
+        };
+    </script>
+</body>
+</html>

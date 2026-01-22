@@ -1,0 +1,759 @@
+[
+  {
+    "_id": "694ab5b1469d9e474be24718",
+    "userId": "qnwp8d0clDSSNuSm3ugmXYLSI3K2",
+    "rosterType": "both",
+    "officeLocation": "Whitefield Office Bangalore",
+    "weeklyOffDays": [
+      "Sat",
+      "Sun"
+    ],
+    "startDate": "2026-01-01T00:00:00.000Z",
+    "endDate": "2026-01-31T00:00:00.000Z",
+    "startTime": "09:00",
+    "endTime": "18:00",
+    "locations": {
+      "pickup": {
+        "coordinates": {
+          "latitude": 12.9698,
+          "longitude": 77.7499
+        },
+        "address": "Whitefield Main Road, Bangalore",
+        "timestamp": "2025-12-23T15:30:56.985Z"
+      },
+      "drop": {
+        "coordinates": {
+          "latitude": 12.9698,
+          "longitude": 77.7499
+        },
+        "address": "Whitefield Office Bangalore",
+        "timestamp": "2025-12-23T15:30:56.985Z"
+      }
+    },
+    "status": "assigned",
+    "requestType": "customer_roster",
+    "assignedDriver": "DRV-100001",
+    "assignedVehicle": "VH234567",
+    "assignmentDate": null,
+    "createdAt": "2025-12-23T15:30:56.985Z",
+    "updatedAt": "2026-01-13T17:55:58.326Z",
+    "customerName": "Suresh Kumar",
+    "customerEmail": "suresh.kumar@abrafleet.com",
+    "notes": "",
+    "priority": "normal",
+    "isRecurring": true,
+    "contactInfo": {
+      "alternatePhone": "+91-9876543211",
+      "phone": "+91-9876543210"
+    },
+    "assignedAt": "2025-12-30T10:04:34.483Z",
+    "assignedBy": "qnwp8d0clDSSNuSm3ugmXYLSI3K2",
+    "driverId": "DRV-100006",
+    "vehicleId": "69491abf6e04aa748dda830c",
+    "tripId": null,
+    "driverName": "Rajesh Kumar",
+    "driverPhone": "+919876543221",
+    "estimatedArrival": "2025-12-30T03:03:00.000Z",
+    "optimizedPickupTime": "08:33",
+    "pickupLocation": {
+      "latitude": 12.9698,
+      "longitude": 77.7499,
+      "address": "Whitefield Office Bangalore"
+    },
+    "pickupSequence": 5,
+    "routeDetails": {
+      "totalDistance": 31.8471,
+      "totalTime": 48,
+      "sequence": 5,
+      "distanceFromPrevious": 0.8405,
+      "estimatedTime": 2
+    },
+    "vehicleNumber": "KA02CD5678"
+  },
+  {
+    "_id": "694ab5b1469d9e474be24719",
+    "userId": "qnwp8d0clDSSNuSm3ugmXYLSI3K2",
+    "rosterType": "both",
+    "officeLocation": "Whitefield Office Bangalore",
+    "weeklyOffDays": [
+      "Sat",
+      "Sun"
+    ],
+    "startDate": "2026-01-01T00:00:00.000Z",
+    "endDate": "2026-01-31T00:00:00.000Z",
+    "startTime": "09:00",
+    "endTime": "18:00",
+    "locations": {
+      "pickup": {
+        "coordinates": {
+          "latitude": 12.9718,
+          "longitude": 77.7519
+        },
+        "address": "ITPL Main Road, Whitefield, Bangalore",
+        "timestamp": "2025-12-23T15:30:56.986Z"
+      },
+      "drop": {
+        "coordinates": {
+          "latitude": 12.9698,
+          "longitude": 77.7499
+        },
+        "address": "Whitefield Office Bangalore",
+        "timestamp": "2025-12-23T15:30:56.986Z"
+      }
+    },
+    "status": "assigned",
+    "requestType": "customer_roster",
+    "assignedDriver": "DRV-100001",
+    "assignedVehicle": "VH234567",
+    "assignmentDate": null,
+    "createdAt": "2025-12-23T15:30:56.986Z",
+    "updatedAt": "2026-01-13T17:55:58.326Z",
+    "customerName": "Priya Menon",
+    "customerEmail": "priya.menon@abrafleet.com",
+    "notes": "",
+    "priority": "normal",
+    "isRecurring": true,
+    "contactInfo": {
+      "alternatePhone": "+91-9876543221",
+      "phone": "+91-9876543220"
+    },
+    "assignedAt": "2025-12-30T10:04:34.315Z",
+    "assignedBy": "qnwp8d0clDSSNuSm3ugmXYLSI3K2",
+    "driverId": "DRV-100006",
+    "vehicleId": "69491abf6e04aa748dda830c",
+    "tripId": null,
+    "driverName": "Rajesh Kumar",
+    "driverPhone": "+919876543221",
+    "estimatedArrival": "2025-12-30T02:58:00.000Z",
+    "optimizedPickupTime": "08:28",
+    "pickupLocation": {
+      "latitude": 12.9718,
+      "longitude": 77.7519,
+      "address": "Whitefield Office Bangalore"
+    },
+    "pickupSequence": 4,
+    "routeDetails": {
+      "totalDistance": 31.8471,
+      "totalTime": 48,
+      "sequence": 4,
+      "distanceFromPrevious": 2.3109,
+      "estimatedTime": 5
+    },
+    "vehicleNumber": "KA02CD5678",
+    "distance": 0.3,
+    "distanceData": {
+      "login": null,
+      "logout": null,
+      "totalDistanceKm": 0.3,
+      "totalDurationMin": 1,
+      "calculatedAt": "2026-01-02T12:58:17.276Z",
+      "calculatedBy": "system-migration"
+    },
+    "estimatedDuration": 1
+  },
+  {
+    "_id": "694ab5b1469d9e474be2471a",
+    "userId": "qnwp8d0clDSSNuSm3ugmXYLSI3K2",
+    "rosterType": "both",
+    "officeLocation": "Whitefield Office Bangalore",
+    "weeklyOffDays": [
+      "Sat",
+      "Sun"
+    ],
+    "startDate": "2026-01-01T00:00:00.000Z",
+    "endDate": "2026-01-31T00:00:00.000Z",
+    "startTime": "09:00",
+    "endTime": "18:00",
+    "locations": {
+      "pickup": {
+        "coordinates": {
+          "latitude": 12.9678,
+          "longitude": 77.7479
+        },
+        "address": "Varthur Main Road, Whitefield, Bangalore",
+        "timestamp": "2025-12-23T15:30:56.986Z"
+      },
+      "drop": {
+        "coordinates": {
+          "latitude": 12.9698,
+          "longitude": 77.7499
+        },
+        "address": "Whitefield Office Bangalore",
+        "timestamp": "2025-12-23T15:30:56.986Z"
+      }
+    },
+    "status": "assigned",
+    "requestType": "customer_roster",
+    "assignedDriver": "DRV-100001",
+    "assignedVehicle": "VH234567",
+    "assignmentDate": null,
+    "createdAt": "2025-12-23T15:30:56.986Z",
+    "updatedAt": "2026-01-13T17:55:58.326Z",
+    "customerName": "Arun Reddy",
+    "customerEmail": "arun.reddy@abrafleet.com",
+    "notes": "",
+    "priority": "normal",
+    "isRecurring": true,
+    "contactInfo": {
+      "alternatePhone": "+91-9876543231",
+      "phone": "+91-9876543230"
+    },
+    "assignedAt": "2025-12-30T10:04:34.567Z",
+    "assignedBy": "qnwp8d0clDSSNuSm3ugmXYLSI3K2",
+    "driverId": "DRV-100006",
+    "vehicleId": "69491abf6e04aa748dda830c",
+    "tripId": null,
+    "driverName": "Rajesh Kumar",
+    "driverPhone": "+919876543221",
+    "estimatedArrival": "2025-12-30T03:05:00.000Z",
+    "optimizedPickupTime": "08:35",
+    "pickupLocation": {
+      "latitude": 12.9678,
+      "longitude": 77.7479,
+      "address": "Whitefield Office Bangalore"
+    },
+    "pickupSequence": 6,
+    "routeDetails": {
+      "totalDistance": 31.8471,
+      "totalTime": 48,
+      "sequence": 6,
+      "distanceFromPrevious": 0.7271,
+      "estimatedTime": 2
+    },
+    "vehicleNumber": "KA02CD5678",
+    "distance": 0.3,
+    "distanceData": {
+      "login": null,
+      "logout": null,
+      "totalDistanceKm": 0.3,
+      "totalDurationMin": 1,
+      "calculatedAt": "2026-01-02T12:58:17.367Z",
+      "calculatedBy": "system-migration"
+    },
+    "estimatedDuration": 1
+  },
+  {
+    "_id": "694ab5b1469d9e474be2471b",
+    "userId": "qnwp8d0clDSSNuSm3ugmXYLSI3K2",
+    "rosterType": "both",
+    "officeLocation": "Whitefield Office Bangalore",
+    "weeklyOffDays": [
+      "Sat",
+      "Sun"
+    ],
+    "startDate": "2026-01-01T00:00:00.000Z",
+    "endDate": "2026-01-31T00:00:00.000Z",
+    "startTime": "09:00",
+    "endTime": "18:00",
+    "locations": {
+      "pickup": {
+        "coordinates": {
+          "latitude": 12.9788,
+          "longitude": 77.7509
+        },
+        "address": "Hopefarm Junction, Whitefield, Bangalore",
+        "timestamp": "2025-12-23T15:30:56.986Z"
+      },
+      "drop": {
+        "coordinates": {
+          "latitude": 12.9698,
+          "longitude": 77.7499
+        },
+        "address": "Whitefield Office Bangalore",
+        "timestamp": "2025-12-23T15:30:56.986Z"
+      }
+    },
+    "status": "assigned",
+    "requestType": "customer_roster",
+    "assignedDriver": "DRV-100001",
+    "assignedVehicle": "VH234567",
+    "assignmentDate": null,
+    "createdAt": "2025-12-23T15:30:56.986Z",
+    "updatedAt": "2026-01-13T17:55:58.326Z",
+    "customerName": "Kavitha Sharma",
+    "customerEmail": "kavitha.sharma@abrafleet.com",
+    "notes": "",
+    "priority": "normal",
+    "isRecurring": true,
+    "contactInfo": {
+      "alternatePhone": "+91-9876543241",
+      "phone": "+91-9876543240"
+    },
+    "assignedAt": "2025-12-30T10:04:34.807Z",
+    "assignedBy": "qnwp8d0clDSSNuSm3ugmXYLSI3K2",
+    "driverId": "DRV-100006",
+    "vehicleId": "69491abf6e04aa748dda830c",
+    "tripId": null,
+    "driverName": "Rajesh Kumar",
+    "driverPhone": "+919876543221",
+    "estimatedArrival": "2025-12-30T03:07:00.000Z",
+    "optimizedPickupTime": "08:37",
+    "pickupLocation": {
+      "latitude": 12.9788,
+      "longitude": 77.7509,
+      "address": "Whitefield Office Bangalore"
+    },
+    "pickupSequence": 7,
+    "routeDetails": {
+      "totalDistance": 31.8471,
+      "totalTime": 48,
+      "sequence": 7,
+      "distanceFromPrevious": 1.6235,
+      "estimatedTime": 3
+    },
+    "vehicleNumber": "KA02CD5678",
+    "distance": 1,
+    "distanceData": {
+      "login": null,
+      "logout": null,
+      "totalDistanceKm": 1,
+      "totalDurationMin": 3,
+      "calculatedAt": "2026-01-02T12:58:17.443Z",
+      "calculatedBy": "system-migration"
+    },
+    "estimatedDuration": 3
+  },
+  {
+    "_id": "694ab5b1469d9e474be2471c",
+    "userId": "qnwp8d0clDSSNuSm3ugmXYLSI3K2",
+    "rosterType": "both",
+    "officeLocation": "Whitefield Office Bangalore",
+    "weeklyOffDays": [
+      "Sat",
+      "Sun"
+    ],
+    "startDate": "2026-01-01T00:00:00.000Z",
+    "endDate": "2026-01-31T00:00:00.000Z",
+    "startTime": "09:00",
+    "endTime": "18:00",
+    "locations": {
+      "pickup": {
+        "coordinates": {
+          "latitude": 12.9608,
+          "longitude": 77.7489
+        },
+        "address": "Channasandra Main Road, Whitefield, Bangalore",
+        "timestamp": "2025-12-23T15:30:56.986Z"
+      },
+      "drop": {
+        "coordinates": {
+          "latitude": 12.9698,
+          "longitude": 77.7499
+        },
+        "address": "Whitefield Office Bangalore",
+        "timestamp": "2025-12-23T15:30:56.986Z"
+      }
+    },
+    "status": "assigned",
+    "requestType": "customer_roster",
+    "assignedDriver": "DRV-100001",
+    "assignedVehicle": "VH234567",
+    "assignmentDate": null,
+    "createdAt": "2025-12-23T15:30:56.986Z",
+    "updatedAt": "2026-01-13T17:55:58.326Z",
+    "customerName": "Deepak Nair",
+    "customerEmail": "deepak.nair@abrafleet.com",
+    "notes": "",
+    "priority": "normal",
+    "isRecurring": true,
+    "contactInfo": {
+      "alternatePhone": "+91-9876543251",
+      "phone": "+91-9876543250"
+    },
+    "assignedAt": "2025-12-30T10:04:33.533Z",
+    "assignedBy": "qnwp8d0clDSSNuSm3ugmXYLSI3K2",
+    "driverId": "DRV-100006",
+    "vehicleId": "69491abf6e04aa748dda830c",
+    "tripId": null,
+    "driverName": "Rajesh Kumar",
+    "driverPhone": "+919876543221",
+    "estimatedArrival": "2025-12-30T02:38:00.000Z",
+    "optimizedPickupTime": "08:08",
+    "pickupLocation": {
+      "latitude": 12.9608,
+      "longitude": 77.7489,
+      "address": "Whitefield Office Bangalore"
+    },
+    "pickupSequence": 3,
+    "routeDetails": {
+      "totalDistance": 31.8471,
+      "totalTime": 48,
+      "sequence": 3,
+      "distanceFromPrevious": 15.8199,
+      "estimatedTime": 20
+    },
+    "vehicleNumber": "KA02CD5678",
+    "distance": 1,
+    "distanceData": {
+      "login": null,
+      "logout": null,
+      "totalDistanceKm": 1,
+      "totalDurationMin": 3,
+      "calculatedAt": "2026-01-02T12:58:17.514Z",
+      "calculatedBy": "system-migration"
+    },
+    "estimatedDuration": 3
+  },
+  {
+    "_id": "694ce9909ceaf59f79334344",
+    "userId": "demo_customer_uid_123456789",
+    "customerName": "Demo Customer",
+    "customerEmail": "customer123@abrafleet.com",
+    "rosterType": "both",
+    "officeLocation": "Koramangala Office",
+    "officeLocationCoordinates": {
+      "latitude": 12.9352,
+      "longitude": 77.6245
+    },
+    "weeklyOffDays": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "startDate": "2024-01-01T00:00:00.000Z",
+    "endDate": "2024-12-31T00:00:00.000Z",
+    "startTime": "09:00",
+    "endTime": "18:00",
+    "locations": {
+      "pickup": {
+        "coordinates": {
+          "latitude": 12.9116,
+          "longitude": 77.637
+        },
+        "address": "HSR Layout Sector 1, Bangalore",
+        "timestamp": "2025-12-25T07:36:47.977Z"
+      },
+      "drop": {
+        "coordinates": {
+          "latitude": 12.9352,
+          "longitude": 77.6245
+        },
+        "address": "Koramangala 5th Block, Bangalore, Karnataka 560095",
+        "timestamp": "2025-12-25T07:36:47.977Z"
+      }
+    },
+    "requestType": "customer_roster",
+    "organizationName": "Abra Travels Demo Org",
+    "createdAt": "2025-12-25T07:36:47.977Z",
+    "updatedAt": "2026-01-13T17:57:33.340Z",
+    "createdBy": "demo_customer_uid_123456789",
+    "readableId": "RST-1002",
+    "status": "assigned",
+    "notes": "Duplicate roster #2 - Same pickup/drop locations and times",
+    "assignedDriver": {
+      "driverId": "694ce9909ceaf59f79334342",
+      "assignedAt": "2025-12-25T07:36:48.064Z"
+    },
+    "assignedVehicle": {
+      "vehicleId": "694ce9909ceaf59f79334343",
+      "assignedAt": "2025-12-25T07:36:48.065Z"
+    },
+    "assignmentDate": "2025-12-25T07:36:48.065Z",
+    "assignedBy": "qnwp8d0clDSSNuSm3ugmXYLSI3K2",
+    "fixedAt": "2025-12-27T04:48:42.328Z",
+    "fixedBy": "cleanup-script",
+    "assignedAt": "2025-12-29T11:42:18.943Z",
+    "driverId": "DRV-100010",
+    "driverName": "Manoj Varma",
+    "driverPhone": "+919876543239",
+    "estimatedArrival": "2025-12-29T02:54:00.000Z",
+    "optimizedPickupTime": "08:24",
+    "pickupLocation": {
+      "latitude": 12.9116,
+      "longitude": 77.637,
+      "address": "Koramangala Office"
+    },
+    "pickupSequence": 1,
+    "routeDetails": {
+      "totalDistance": 9.91,
+      "totalTime": 16,
+      "sequence": 1,
+      "distanceFromPrevious": 9.91,
+      "estimatedTime": 16
+    },
+    "vehicleId": "694a7beec1882931f34d4912",
+    "vehicleNumber": "KA01EF9012",
+    "distance": 3,
+    "distanceData": {
+      "login": {
+        "from": {
+          "latitude": 12.9116,
+          "longitude": 77.637,
+          "address": {
+            "latitude": 12.9116,
+            "longitude": 77.637,
+            "address": "Koramangala Office"
+          }
+        },
+        "to": {
+          "latitude": 12.9352,
+          "longitude": 77.6245,
+          "address": "Koramangala Office"
+        },
+        "distanceKm": 3,
+        "estimatedDurationMin": 9
+      },
+      "logout": null,
+      "totalDistanceKm": 3,
+      "totalDurationMin": 9,
+      "calculatedAt": "2026-01-02T12:58:17.197Z",
+      "calculatedBy": "system-migration"
+    },
+    "estimatedDuration": 9
+  },
+  {
+    "_id": "696f0e9b9bdb6156f76cb496",
+    "userId": "6958bb76aa7823cfd6ff72db",
+    "rosterType": "both",
+    "officeLocation": "Vijayanagara, Devarayapattana, Karnataka, 573201",
+    "weeklyOffDays": [
+      "Sat",
+      "Sun"
+    ],
+    "startDate": "2026-02-05T18:30:00.000Z",
+    "endDate": "2026-02-27T18:30:00.000Z",
+    "startTime": "14:00",
+    "endTime": "23:00",
+    "locations": {
+      "pickup": {
+        "coordinates": {
+          "latitude": null,
+          "longitude": null
+        },
+        "address": "2nd Main Road, Kasturi Nagar, Bengaluru, Karnataka, 560043",
+        "timestamp": "2026-01-20T05:11:55.249Z"
+      },
+      "drop": {
+        "coordinates": {
+          "latitude": null,
+          "longitude": null
+        },
+        "address": "Chikka Banaswadi Road, Kasturi Nagar, Bengaluru, Karnataka, 560043",
+        "timestamp": "2026-01-20T05:11:55.249Z"
+      }
+    },
+    "status": "pending_assignment",
+    "requestType": "customer_roster",
+    "assignedDriver": null,
+    "assignedVehicle": null,
+    "assignmentDate": null,
+    "assignedBy": null,
+    "createdAt": "2026-01-20T05:11:55.249Z",
+    "updatedAt": "2026-01-20T05:11:55.249Z",
+    "createdBy": "6958bb76aa7823cfd6ff72db",
+    "customerName": "Unknown Customer",
+    "customerEmail": "",
+    "notes": "",
+    "priority": "normal",
+    "isRecurring": true,
+    "originalRequest": {
+      "rosterType": "both",
+      "officeLocation": "Vijayanagara, Devarayapattana, Karnataka, 573201",
+      "officeLocationCoordinates": {
+        "latitude": 12.9892352,
+        "longitude": 76.0741888
+      },
+      "weekdays": [
+        "Sat",
+        "Sun"
+      ],
+      "fromDate": "2026-02-05T18:30:00.000Z",
+      "toDate": "2026-02-27T18:30:00.000Z",
+      "fromTime": "14:00",
+      "toTime": "23:00",
+      "loginPickupLocation": [
+        13.003186114893373,
+        77.66101868650821
+      ],
+      "loginPickupAddress": "2nd Main Road, Kasturi Nagar, Bengaluru, Karnataka, 560043",
+      "logoutDropLocation": [
+        13.003259764077542,
+        77.65684305208434
+      ],
+      "logoutDropAddress": "Chikka Banaswadi Road, Kasturi Nagar, Bengaluru, Karnataka, 560043",
+      "notes": null,
+      "customerName": "Unknown Customer",
+      "customerEmail": "",
+      "employeeDetails": {},
+      "createdBy": "6958bb76aa7823cfd6ff72db",
+      "createdByAdmin": false,
+      "requestedAt": "2026-01-20T05:11:55.249Z"
+    }
+  },
+  {
+    "_id": "696f8cd0c97ce5c01fa83018",
+    "userId": "6958bb76aa7823cfd6ff72db",
+    "rosterType": "both",
+    "officeLocation": "Khairatabad, Hyderabad, Telangana, 500082",
+    "weeklyOffDays": [
+      "Sat",
+      "Sun"
+    ],
+    "startDate": "2026-02-26T18:30:00.000Z",
+    "endDate": "2026-03-12T18:30:00.000Z",
+    "startTime": "14:00",
+    "endTime": "23:00",
+    "locations": {
+      "office": {
+        "coordinates": {
+          "latitude": 17.41632508070377,
+          "longitude": 78.46287944047549
+        },
+        "address": "Khairatabad, Hyderabad, Telangana, 500082",
+        "timestamp": "2026-01-20T14:10:24.437Z"
+      },
+      "pickup": {
+        "coordinates": {
+          "latitude": 17.416202236980656,
+          "longitude": 78.46293308465579
+        },
+        "address": "Masjid al- Habeeb, Khairatabad, Hyderabad, Telangana, 500082",
+        "timestamp": "2026-01-20T14:10:24.437Z"
+      },
+      "drop": {
+        "coordinates": {
+          "latitude": 17.418214685037395,
+          "longitude": 78.46166157812172
+        },
+        "address": "Raj Bhavan Road, Ward 91 Khairatabad, Hyderabad, Telangana, 500082",
+        "timestamp": "2026-01-20T14:10:24.437Z"
+      }
+    },
+    "status": "pending_assignment",
+    "requestType": "customer_roster",
+    "assignedDriver": null,
+    "assignedVehicle": null,
+    "assignmentDate": null,
+    "assignedBy": null,
+    "createdAt": "2026-01-20T14:10:24.437Z",
+    "updatedAt": "2026-01-20T14:10:24.437Z",
+    "createdBy": "6958bb76aa7823cfd6ff72db",
+    "customerName": "Unknown Customer",
+    "customerEmail": "",
+    "notes": "",
+    "priority": "normal",
+    "isRecurring": true,
+    "originalRequest": {
+      "rosterType": "both",
+      "officeLocation": "Khairatabad, Hyderabad, Telangana, 500082",
+      "officeLocationCoordinates": {
+        "latitude": 17.41632508070377,
+        "longitude": 78.46287944047549
+      },
+      "weekdays": [
+        "Sat",
+        "Sun"
+      ],
+      "fromDate": "2026-02-26T18:30:00.000Z",
+      "toDate": "2026-03-12T18:30:00.000Z",
+      "fromTime": "14:00",
+      "toTime": "23:00",
+      "loginPickupLocation": [
+        17.416202236980656,
+        78.46293308465579
+      ],
+      "loginPickupAddress": "Masjid al- Habeeb, Khairatabad, Hyderabad, Telangana, 500082",
+      "logoutDropLocation": [
+        17.418214685037395,
+        78.46166157812172
+      ],
+      "logoutDropAddress": "Raj Bhavan Road, Ward 91 Khairatabad, Hyderabad, Telangana, 500082",
+      "notes": null,
+      "customerName": "Unknown Customer",
+      "customerEmail": "",
+      "employeeDetails": {},
+      "createdBy": "6958bb76aa7823cfd6ff72db",
+      "createdByAdmin": false,
+      "requestedAt": "2026-01-20T14:10:24.437Z"
+    }
+  },
+  {
+    "_id": "696f9838483c30387eebc1f5",
+    "userId": "6958bb76aa7823cfd6ff72db",
+    "rosterType": "both",
+    "officeLocation": "Cottonpete, Bengaluru, Karnataka, 560053",
+    "weeklyOffDays": [
+      "Sat",
+      "Sun"
+    ],
+    "startDate": "2026-03-25T18:30:00.000Z",
+    "endDate": "2026-03-30T18:30:00.000Z",
+    "startTime": "09:00",
+    "endTime": "18:00",
+    "locations": {
+      "office": {
+        "coordinates": {
+          "latitude": 12.967836152917062,
+          "longitude": 77.57305649719238
+        },
+        "address": "Cottonpete, Bengaluru, Karnataka, 560053",
+        "timestamp": "2026-01-20T14:59:04.249Z"
+      },
+      "pickup": {
+        "coordinates": {
+          "latitude": 12.97469467604787,
+          "longitude": 77.59125260314941
+        },
+        "address": "Sampangirama Nagar, Bengaluru, Karnataka, 560001",
+        "timestamp": "2026-01-20T14:59:04.249Z"
+      },
+      "drop": {
+        "coordinates": {
+          "latitude": 12.970010827066499,
+          "longitude": 77.57563141784668
+        },
+        "address": "Loading address...",
+        "timestamp": "2026-01-20T14:59:04.249Z"
+      }
+    },
+    "status": "pending_assignment",
+    "requestType": "customer_roster",
+    "assignedDriver": null,
+    "assignedVehicle": null,
+    "assignmentDate": null,
+    "assignedBy": null,
+    "createdAt": "2026-01-20T14:59:04.249Z",
+    "updatedAt": "2026-01-20T14:59:04.249Z",
+    "createdBy": "6958bb76aa7823cfd6ff72db",
+    "customerName": "Unknown Customer",
+    "customerEmail": "",
+    "notes": "",
+    "priority": "normal",
+    "isRecurring": true,
+    "originalRequest": {
+      "rosterType": "both",
+      "officeLocation": "Cottonpete, Bengaluru, Karnataka, 560053",
+      "officeLocationCoordinates": {
+        "latitude": 12.967836152917062,
+        "longitude": 77.57305649719238
+      },
+      "weekdays": [
+        "Sat",
+        "Sun"
+      ],
+      "fromDate": "2026-03-25T18:30:00.000Z",
+      "toDate": "2026-03-30T18:30:00.000Z",
+      "fromTime": "09:00",
+      "toTime": "18:00",
+      "loginPickupLocation": [
+        12.97469467604787,
+        77.59125260314941
+      ],
+      "loginPickupAddress": "Sampangirama Nagar, Bengaluru, Karnataka, 560001",
+      "logoutDropLocation": [
+        12.970010827066499,
+        77.57563141784668
+      ],
+      "logoutDropAddress": "Loading address...",
+      "notes": null,
+      "customerName": "Unknown Customer",
+      "customerEmail": "",
+      "employeeDetails": {},
+      "createdBy": "6958bb76aa7823cfd6ff72db",
+      "createdByAdmin": false,
+      "requestedAt": "2026-01-20T14:59:04.249Z"
+    }
+  }
+]
