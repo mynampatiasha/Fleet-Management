@@ -40,3 +40,8 @@ coverage/
 # Misc
 *.orig
 .cache/
+
+# GCP / Firebase / Service Accounts
+serviceAccountKey.json
+**/serviceAccountKey.json
+abra_fleet_backend/serviceAccountKey.json
